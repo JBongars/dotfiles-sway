@@ -24,10 +24,11 @@
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango: Noto Sans Regular 10
+# exec_always "setxkbmap -layout us -variant ,dvorak,phonetic -option grp:alt_shift_toggle"
 
 # set the mod key to the winkey:
-set $mod Mod4
-# set $mod Caps_Lock
+# set $mod Mod4
+set $mod Mod3
 
 # set this folder config
 set $i3config $HOME/.config/i3
@@ -121,31 +122,31 @@ bindcode $mod+Shift+15    move container to workspace  $ws6
 bindcode $mod+Shift+17    move container to workspace  $ws8
 bindcode $mod+Shift+18    move container to workspace  $ws9
 bindcode $mod+Shift+19    move container to workspace  $ws10
-
-# move focused container to workspace with numpad keys
-bindcode $mod+Shift+Mod2+87 	move container to workspace  $ws1
-bindcode $mod+Shift+Mod2+88 	move container to workspace  $ws2
-bindcode $mod+Shift+Mod2+89 	move container to workspace  $ws3
-bindcode $mod+Shift+Mod2+83 	move container to workspace  $ws4
-bindcode $mod+Shift+Mod2+84 	move container to workspace  $ws5
-bindcode $mod+Shift+Mod2+85 	move container to workspace  $ws6
-bindcode $mod+Shift+Mod2+79 	move container to workspace  $ws7
-bindcode $mod+Shift+Mod2+80 	move container to workspace  $ws8
-bindcode $mod+Shift+Mod2+81 	move container to workspace  $ws9
-bindcode $mod+Shift+Mod2+90 	move container to workspace  $ws10
-
-# move focused container to workspace with numpad keys
-bindcode $mod+Shift+87 	 move container to workspace  $ws1
-bindcode $mod+Shift+88 	 move container to workspace  $ws2
-bindcode $mod+Shift+89 	 move container to workspace  $ws3
-bindcode $mod+Shift+83 	 move container to workspace  $ws4
-bindcode $mod+Shift+84 	 move container to workspace  $ws5
-bindcode $mod+Shift+85 	 move container to workspace  $ws6
-bindcode $mod+Shift+79 	 move container to workspace  $ws7
-bindcode $mod+Shift+80 	 move container to workspace  $ws8
-bindcode $mod+Shift+81 	 move container to workspace  $ws9
-bindcode $mod+Shift+90 	 move container to workspace  $ws10
-
+#
+# # move focused container to workspace with numpad keys
+# bindcode $mod+Shift+Mod2+87 	move container to workspace  $ws1
+# bindcode $mod+Shift+Mod2+88 	move container to workspace  $ws2
+# bindcode $mod+Shift+Mod2+89 	move container to workspace  $ws3
+# bindcode $mod+Shift+Mod2+83 	move container to workspace  $ws4
+# bindcode $mod+Shift+Mod2+84 	move container to workspace  $ws5
+# bindcode $mod+Shift+Mod2+85 	move container to workspace  $ws6
+# bindcode $mod+Shift+Mod2+79 	move container to workspace  $ws7
+# bindcode $mod+Shift+Mod2+80 	move container to workspace  $ws8
+# bindcode $mod+Shift+Mod2+81 	move container to workspace  $ws9
+# bindcode $mod+Shift+Mod2+90 	move container to workspace  $ws10
+#
+# # move focused container to workspace with numpad keys
+# bindcode $mod+Shift+87 	 move container to workspace  $ws1
+# bindcode $mod+Shift+88 	 move container to workspace  $ws2
+# bindcode $mod+Shift+89 	 move container to workspace  $ws3
+# bindcode $mod+Shift+83 	 move container to workspace  $ws4
+# bindcode $mod+Shift+84 	 move container to workspace  $ws5
+# bindcode $mod+Shift+85 	 move container to workspace  $ws6
+# bindcode $mod+Shift+79 	 move container to workspace  $ws7
+# bindcode $mod+Shift+80 	 move container to workspace  $ws8
+# bindcode $mod+Shift+81 	 move container to workspace  $ws9
+# bindcode $mod+Shift+90 	 move container to workspace  $ws10
+#
 # resize window (you can also use the mouse for that):
 #mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
@@ -175,25 +176,10 @@ bindcode $mod+Shift+90 	 move container to workspace  $ws10
 # keybindings for different actions: #
 ######################################
 
-# Set initial keyboard layout to Dvorak
-exec_always --no-startup-id setxkbmap dvorak
-
-# Create a mode for QWERTY
-mode "qwerty_mode" {
-    # Switch back to Dvorak when pressing mod+Caps_Lock again
-    bindsym $mod+Caps_Lock exec --no-startup-id setxkbmap dvorak; mode "default"
-}
-
-# Enter QWERTY mode with mod+Caps_Lock
-bindsym $mod+Caps_Lock exec --no-startup-id setxkbmap us; mode "qwerty_mode"
-
-######################################
-# keybindings for different actions: #
-######################################
-
 # start a terminal
 # bindsym $mod+Return exec --no-startup-id xfce4-terminal
 bindsym $mod+Return exec --no-startup-id alacritty
+bindsym Mod4+Return exec --no-startup-id alacritty
 
 # kill focused window
 bindsym $mod+q kill
@@ -203,23 +189,26 @@ bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
 
 # Lock the system
 # lock with solid color:
-exec --no-startup-id xset s on && xset s blank
-bindsym $mod+l exec --no-startup-id i3lock -c 000000 && sleep 0.5 && xset s activate
-exec --no-startup-id xautolock -time 1 -locker 'i3lock -c 000000 && sleep 0.5 && xset s activate'
+# exec --no-startup-id xset s on && xset s blank
+# bindsym $mod+l exec --no-startup-id i3lock -c 000000 && sleep 0.5 && xset s activate
+
+bindsym $mod+l exec --no-startup-id ~/.config/i3/scripts/lightdm-lock.sh
 
 # bindsym $mod+l exec --no-startup-id $i3scripts/lock
 # exec --no-startup-id xautolock -time 1 -locker $i3scripts/lock
 
-# lock with a picture:
-# bindsym $mod+l exec --no-startup-id i3lock -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
-# lock by blurring the screen:
-# bindsym $mod+l exec --no-startup-id ~/.config/i3/scripts/blur-lock
+# theme manager
+# Set environment variables for Qt themes
+exec --no-startup-id export QT_QPA_PLATFORMTHEME=qt5ct
+# Start theme services
+exec --no-startup-id xfsettingsd
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to update i3)
 bindsym $mod+Shift+r restart
+bindsym Mod4+Shift+r exec --no-startup-id /usr/local/bin/apply_xmodmap.sh
 
 # keybinding in fancy rofi (automated):
 bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
@@ -279,7 +268,8 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# I do not use this
+# bindsym $mod+a focus parent
 
 # open new empty workspace
 bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/empty_workspace
@@ -318,8 +308,20 @@ bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 ## App shortcuts
 bindsym $mod+w exec --no-startup-id /usr/bin/firefox
 bindsym $mod+n exec --no-startup-id /usr/bin/thunar
-bindsym Print exec --no-startup-id scrot	~/Pictures/.screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
-bindsym $mod+Shift+d exec --no-startup-id maim -s	~/Pictures/.screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png && notify-send "Screenshot saved to ~/Pictures/.screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png"
+
+# Full-screen screenshot (Print key) - saves to file and clipboard
+bindsym Print exec --no-startup-id \
+    scrot '/tmp/screenshot.png' \
+    && cat /tmp/screenshot.png | xclip -selection clipboard -t image/png \
+    && mv /tmp/screenshot.png ~/Pictures/.screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png \
+    && notify-send "Screenshot saved to file and clipboard"
+
+# Selection screenshot ($mod+Shift+d) - saves to file and clipboard
+bindsym $mod+Shift+d exec --no-startup-id \
+    maim -s '/tmp/screenshot.png' \
+    && cat /tmp/screenshot.png | xclip -selection clipboard -t image/png \
+    && mv /tmp/screenshot.png ~/Pictures/.screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png \
+    && notify-send "Screenshot saved to file and clipboard"
 
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
@@ -603,16 +605,14 @@ strip_workspace_numbers yes
 #####################################
 
 ## rofi bindings fancy application menu ($mod+d /F9 optional disabled)
-bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
-		-config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun
 
 #bindsym F9 exec --no-startup-id rofi -modi drun -show drun \
 #		-config ~/.config/rofi/rofidmenu.rasi
 
 ## rofi bindings for window menu ($mod+t /F10 optional disabled)
 
-bindsym $mod+t exec --no-startup-id rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+t exec --no-startup-id rofi -show window
 
 #bindsym F10 exec --no-startup-id rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
