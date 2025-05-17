@@ -17,6 +17,10 @@ new_window pixel 1
 # thin borders
 hide_edge_borders both
 
+# Make workspaces follow your focus between screens
+workspace_auto_back_and_forth no
+focus_follows_mouse yes
+
 # Set inner/outer gaps
 gaps inner 6
 gaps outer 3
@@ -34,16 +38,35 @@ floating_modifier $mod
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
+# Add a binding to move workspaces between outputs (screens)
+bindsym $mod+Shift+n move workspace to output right
+# bindsym $mod+Shift+p move workspace to output left
+
+# Focus right and left screens
+bindsym $mod+n focus output right
+# bindsym $mod+p focus output left
+
 # switch to workspace
-bindcode $mod+10    workspace  $ws1
-bindcode $mod+11    workspace  $ws2
-bindcode $mod+12    workspace  $ws3
-bindcode $mod+13    workspace  $ws4
-bindcode $mod+14    workspace  $ws5
-bindcode $mod+15    workspace  $ws6
-bindcode $mod+16    workspace  $ws7
-bindcode $mod+17    workspace  $ws8
-bindcode $mod+18    workspace  $ws9
+# bindcode $mod+10    workspace number $ws1
+# bindcode $mod+11    workspace number $ws2
+# bindcode $mod+12    workspace number $ws3
+# bindcode $mod+13    workspace number $ws4
+# bindcode $mod+14    workspace number $ws5
+# bindcode $mod+15    workspace number $ws6
+# bindcode $mod+16    workspace number $ws7
+# bindcode $mod+17    workspace number $ws8
+# bindcode $mod+18    workspace number $ws9
+
+# switch to workspace - bring workspace to current screen
+bindcode $mod+10 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 1
+bindcode $mod+11 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 2
+bindcode $mod+12 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 3
+bindcode $mod+13 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 4
+bindcode $mod+14 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 5
+bindcode $mod+15 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 6
+bindcode $mod+16 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 7
+bindcode $mod+17 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 8
+bindcode $mod+18 exec --no-startup-id ~/.config/i3/scripts/force_workspace_current_screen.sh 9
 
 # move focused container to workspace
 bindcode $mod+Shift+10    move container to workspace  $ws1
@@ -159,7 +182,7 @@ bindsym $mod+space focus mode_toggle
 # bindsym $mod+a focus parent
 
 # open new empty workspace
-bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/empty_workspace
+# bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/empty_workspace
 
 # Multimedia Keys
 
@@ -190,11 +213,11 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Redirect sound to headphones
-bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
+# bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
 ## App shortcuts
 bindsym $mod+c exec --no-startup-id /opt/chrome/chrome 
-# bindsym $mod+n exec --no-startup-id /usr/bin/thunar
+# bindsym $mod+z exec --no-startup-id /usr/bin/thunar
 
 # Full-screen screenshot (Print key) - saves to file and clipboard
 bindsym Print exec --no-startup-id \
@@ -211,7 +234,7 @@ bindsym $mod+Shift+d exec --no-startup-id \
     && notify-send "Screenshot saved to file and clipboard"
 
 # Power Profiles menu switcher (rofi)
-bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
+# bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 
 # configuration for workspace behaviour: #
 ##########################################
