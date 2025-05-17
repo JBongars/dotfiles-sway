@@ -52,9 +52,9 @@ bindcode $mod+Shift+12    move container to workspace  $ws3
 bindcode $mod+Shift+13    move container to workspace  $ws4
 bindcode $mod+Shift+14    move container to workspace  $ws5
 bindcode $mod+Shift+15    move container to workspace  $ws6
-bindcode $mod+Shift+16    move container to workspace  $ws8
-bindcode $mod+Shift+17    move container to workspace  $ws9
-bindcode $mod+Shift+18    move container to workspace  $ws10
+bindcode $mod+Shift+16    move container to workspace  $ws7
+bindcode $mod+Shift+17    move container to workspace  $ws8
+bindcode $mod+Shift+18    move container to workspace  $ws9
 
 ######################################
 # keybindings for different actions: #
@@ -69,11 +69,17 @@ bindsym Mod4+Return exec --no-startup-id alacritty
 # kill focused window
 bindsym $mod+q kill
 
+# Kill all windows in current workspace
+bindsym $mod+Shift+q exec --no-startup-id "i3-msg '[workspace=__focused__] kill'"
+
+# Use M-c and M-v for copy/paste with xsel (xorg)
+bindsym Mod1+c exec --no-startup-id "xsel -p | xsel -b"
+bindsym Mod1+v exec --no-startup-id "xsel -b | xsel -p -i"
+
 # exit-menu
 #TODO: Find out about power menu
 bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
 
-# Lock the system
 # lock with solid color:
 # exec --no-startup-id xset s on && xset s blank
 
@@ -88,12 +94,9 @@ exec --no-startup-id export QT_QPA_PLATFORMTHEME=qt5ct
 # Start theme services
 exec --no-startup-id xfsettingsd
 
-# Combined action: reload i3, restart i3, and apply xmodmap
+# Combined action: reload i3 config, restart i3, and apply xmodmap
 bindsym Mod4+Shift+r exec --no-startup-id "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
 bindsym $mod+Shift+r exec --no-startup-id "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
-# bindsym $mod+Shift+c reload
-# bindsym $mod+Shift+r restart
-# bindsym Mod4+Shift+r exec --no-startup-id /usr/local/bin/apply_xmodmap.sh
 
 #TODO: Useful but need to fix rofi
 
