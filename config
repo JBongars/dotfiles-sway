@@ -334,8 +334,8 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 
 
 # Desktop notifications
-#exec --no-startup-id dbus-launch /usr/bin/dunst --config ~/.config/dunst/dunstrc
-exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
+exec --no-startup-id dbus-launch /usr/bin/dunst --config ~/.config/i3/.dunst/dunstrc -print | tee -a ~/.logs/dunst
+# exec --no-startup-id /usr/bin/dunst --config ~/.config/i3/.dunst/dunstrc -print | tee -a ~/.logs/dunst
 
 #WARN: This doens not work with tabbed mode
 
@@ -484,20 +484,20 @@ strip_workspace_name no
 bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun
 
 #bindsym F9 exec --no-startup-id rofi -modi drun -show drun \
-#		-config ~/.config/rofi/rofidmenu.rasi
+#		-config ~/.config/i3/.rofi/rofidmenu.rasi
 
 ## rofi bindings for window menu ($mod+t /F10 optional disabled)
 
 bindsym $mod+t exec --no-startup-id rofi -show window
 
 #bindsym F10 exec --no-startup-id rofi -show window \
-#		-config ~/.config/rofi/rofidmenu.rasi
+#		-config ~/.config/i3/.rofi/rofidmenu.rasi
 
 ## rofi bindings to manage clipboard (install rofi-greenclip from the AUR)
 
 #exec --no-startup-id greenclip daemon>/dev/null
 #bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
-#		-config ~/.config/rofi/rofidmenu.rasi
+#		-config ~/.config/i3/.rofi/rofidmenu.rasi
 
 
 #########################################################3
