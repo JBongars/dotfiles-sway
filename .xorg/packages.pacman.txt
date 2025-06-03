@@ -1,0 +1,59 @@
+###########################################
+# Core X11/i3 packages:
+###########################################
+xorg-server
+xorg-xinit
+xorg-xrandr
+xorg-xset
+xorg-xsetroot
+xorg-xrdb
+xorg-xmodmap
+xorg-xbacklight
+xorg-xinput
+i3-wm
+i3blocks
+i3status
+lightdm
+lightdm-gtk-greeter
+
+###########################################
+# Terminal & Display:
+###########################################
+alacritty
+arandr
+hsetroot
+
+###########################################
+Key i3 functionality packages:
+###########################################
+rofi
+dunst
+dex
+polkit-gnome
+udiskie
+keynav
+maim
+scrot
+xclip
+xsel
+
+###########################################
+# Audio/Media controls (for your XF86 keys):
+###########################################
+pavucontrol
+pipewire-pulse
+playerctl
+System tray apps (from your config):
+blueman
+network-manager-applet
+xfce4-clipman-plugin
+Fonts & Themes:
+noto-fonts
+qt5ct
+
+###########################################
+# Optional but used in your config:
+###########################################
+xautolock
+galculator
+thunar-volman

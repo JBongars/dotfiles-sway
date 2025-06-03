@@ -499,6 +499,13 @@ bindsym $mod+t exec --no-startup-id rofi -show window
 #bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
 #		-config ~/.config/i3/.rofi/rofidmenu.rasi
 
+#####################################
+# Application menu handled by rofi: #
+#####################################
+
+# bindsym $mod+semicolon exec keynav -f ~/.config/i3/.keynav
+exec --no-startup-id keynav daemonize -f ~/.config/i3/.keynav
+
 
 #########################################################3
 # USER CONFIG
