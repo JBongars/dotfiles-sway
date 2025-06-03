@@ -1,11 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-PICTURE=/tmp/i3lock.png
-SCREENSHOT="scrot -z $PICTURE"
+PICTURE=/tmp/swaylock.png
 
-BLUR="5x4"
-
-$SCREENSHOT
-convert $PICTURE -blur $BLUR $PICTURE
-i3lock -i $PICTURE
+grim $PICTURE
+convert $PICTURE -blur 5x4 $PICTURE
+swaylock -i $PICTURE
 rm $PICTURE

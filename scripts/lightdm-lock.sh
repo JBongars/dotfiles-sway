@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Lock screen with LightDM
 dm-tool lock &
@@ -11,5 +11,5 @@ GREETER_PID=$(pgrep -f lightdm-greeter)
 while [ $(pgrep -f lightdm-greeter | wc -l) -ne 0 ];
 do
     sleep 120 # 2 mins
-    xset dpms force off
+    swaymsg "output * dpms off"
 done
