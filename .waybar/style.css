@@ -10,7 +10,7 @@
  * Keyframes
  * -------------------------------------------------------------------------- */
 
-@define-color highlight #685878 ;
+@define-color highlight #807dfe ;
 @define-color base1  #19191e ;
 
 @keyframes blink-warning {
@@ -44,7 +44,7 @@
     border: none;
     border-radius: 0;
     min-height: 0;
-    margin: 1px;
+    margin: 0px;
     padding: 0;
 }
 
@@ -69,8 +69,9 @@
 #battery,
 #clock,
 #tray {
-    padding:0.5rem 0.6rem;
-    margin: 1px 0px;
+    padding: 0.3rem 0.5rem;
+    margin: 0px;
+    border-left: 1px solid #717171;
 }
 
 /* -----------------------------------------------------------------------------
@@ -87,19 +88,23 @@
 }
 
 #workspaces button {
-    color: #eceff4;
-    padding: 1px 1px;
-    margin-right: 1px;
-    margin-left: 1px;
+    color: #e3e3ea;
+    padding: 4px 6px;
+    margin-right: 0px;
+    margin-left: 0px;
+    border: 1px solid #404040;
 }
 
 #workspaces button.focused {
-    border: 1px solid #d8dee9;
+    background-color: #807dfe;
+    color: #ffffff;
+    border: 1px solid #807dfe;
 }
 
 #workspaces button.urgent {
     border-color: #c9545d;
-    color: #c9545d;
+    background-color: #c9545d;
+    color: #ffffff;
 }
 
 #mode {
@@ -112,6 +117,8 @@
 
 #window {
     font-weight: bold;
+    color: #e3e3ea;
+    padding: 0.3rem 0.5rem;
 }
 
 #network.disconnected {
@@ -148,6 +155,7 @@
 }
 
 #pulseaudio {
+    color: #807dfe;
 }
 
 #pulseaudio.muted {
@@ -179,7 +187,8 @@
 }
 
 #custom-power {
-    margin-left:11px;
-    margin-right:11px;
+    margin-left:0px;
+    margin-right:0px;
     font-size:11px;
+    color: #407437;
 }
