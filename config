@@ -13,7 +13,7 @@ font pango: Noto Sans Regular 10
 # set leader key to hyper
 set $mod Mod3
 
-set $i3config $HOME/.config/i3
+set $i3config $HOME/.config/sway
 set $i3scripts $i3config/scripts
 
 workspace_layout default
@@ -65,15 +65,15 @@ bindsym $mod+n focus output right
 # bindcode $mod+18    workspace number $ws9
 
 # switch to workspace - bring workspace to current screen
-bindcode $mod+10 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 1
-bindcode $mod+11 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 2
-bindcode $mod+12 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 3
-bindcode $mod+13 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 4
-bindcode $mod+14 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 5
-bindcode $mod+15 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 6
-bindcode $mod+16 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 7
-bindcode $mod+17 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 8
-bindcode $mod+18 exec ~/.config/i3/scripts/force_workspace_current_screen.sh 9
+bindcode $mod+10 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 1
+bindcode $mod+11 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 2
+bindcode $mod+12 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 3
+bindcode $mod+13 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 4
+bindcode $mod+14 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 5
+bindcode $mod+15 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 6
+bindcode $mod+16 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 7
+bindcode $mod+17 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 8
+bindcode $mod+18 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 9
 
 # move focused container to workspace
 bindcode $mod+Shift+10    move container to workspace  $ws1
@@ -108,10 +108,10 @@ bindsym Mod1+v exec wl-paste
 
 # exit-menu
 #TODO: Find out about power menu
-bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
+bindsym $mod+Shift+e exec ~/.config/sway/scripts/powermenu
 
 # exit to lightdm login page
-bindsym Ctrl+Mod1+q exec ~/.config/i3/scripts/lightdm-lock.sh
+bindsym Ctrl+Mod1+q exec ~/.config/sway/scripts/lightdm-lock.sh
 # bindsym $mod+l exec $i3scripts/lock
 # exec xautolock -time 1 -locker $i3scripts/lock
 
@@ -126,14 +126,14 @@ bindsym $mod+Shift+r exec "swaymsg reload && /usr/local/bin/apply_xmodmap.sh"
 #TODO: Useful but need to fix wofi 
 
 # keybinding in fancy wofi (automated):
-bindsym $mod+F1 exec ~/.config/i3/scripts/keyhint-2
+bindsym $mod+F1 exec ~/.config/sway/scripts/keyhint-2
 
 # Backlight control
 #bindsym XF86MonBrightnessUp exec xbacklight +10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
 #bindsym XF86MonBrightnessDown exec xbacklight -10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
 # Backlight setting using dunst osc
-bindsym XF86MonBrightnessUp exec ~/.config/i3/scripts/volume_brightness.sh brightness_up
-bindsym XF86MonBrightnessDown exec ~/.config/i3/scripts/volume_brightness.sh brightness_down
+bindsym XF86MonBrightnessUp exec ~/.config/sway/scripts/volume_brightness.sh brightness_up
+bindsym XF86MonBrightnessDown exec ~/.config/sway/scripts/volume_brightness.sh brightness_down
 
 # change focus
 bindsym $mod+h focus left
@@ -184,7 +184,7 @@ bindsym $mod+space focus mode_toggle
 # bindsym $mod+a focus parent
 
 # open new empty workspace
-# bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace
+# bindsym $mod+Shift+n exec ~/.config/sway/scripts/empty_workspace
 
 # Multimedia Keys
 
@@ -193,8 +193,8 @@ bindsym $mod+space focus mode_toggle
 #bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
 #bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
 # use meta keys showing osc using dunst
-bindsym XF86AudioRaiseVolume exec ~/.config/i3/scripts/volume_brightness.sh volume_up
-bindsym XF86AudioLowerVolume exec ~/.config/i3/scripts/volume_brightness.sh volume_down
+bindsym XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume_brightness.sh volume_up
+bindsym XF86AudioLowerVolume exec ~/.config/sway/scripts/volume_brightness.sh volume_down
 
 # gradular volume control
 bindsym $mod+XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill -RTMIN+1 i3blocks
@@ -203,7 +203,7 @@ bindsym $mod+XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- && pkill 
 # mute
 #bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
 # use meta keys showing osc using dunst
-bindsym XF86AudioMute exec ~/.config/i3/scripts/volume_brightness.sh volume_mute
+bindsym XF86AudioMute exec ~/.config/sway/scripts/volume_brightness.sh volume_mute
 
 # mic mute toggle
 bindsym XF86AudioMicMute exec amixer sset Capture toggle
@@ -234,7 +234,7 @@ bindsym $mod+Shift+d exec grim -g "$(slurp)" /tmp/screenshot.png && \
     notify-send "Screenshot selection saved"
 
 # Power Profiles menu switcher (wofi)
-# bindsym $mod+Shift+p exec ~/.config/i3/scripts/power-profiles
+# bindsym $mod+Shift+p exec ~/.config/sway/scripts/power-profiles
 
 # configuration for workspace behaviour: #
 ##########################################
@@ -336,8 +336,8 @@ exec swayidle -w timeout 480 'swaymsg "output * dpms off"' resume 'swaymsg "outp
 
 
 # Desktop notifications
-exec dbus-launch /usr/bin/dunst --config ~/.config/i3/.dunst/dunstrc -print | tee -a ~/.logs/dunst
-# exec /usr/bin/dunst --config ~/.config/i3/.dunst/dunstrc -print | tee -a ~/.logs/dunst
+exec dbus-launch /usr/bin/dunst --config ~/.config/sway/.dunst/dunstrc -print | tee -a ~/.logs/dunst
+# exec /usr/bin/dunst --config ~/.config/sway/.dunst/dunstrc -print | tee -a ~/.logs/dunst
 
 #WARN: This does not work with tabbed mode
 
@@ -433,7 +433,7 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 # (plus the system information i3status finds out, if available)
 bar {
 		font pango: Noto Sans Regular 10
-		status_command i3blocks -c ~/.config/i3/i3blocks.conf
+		status_command i3blocks -c ~/.config/sway/i3blocks.conf
 	    	position bottom
 #	    	i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
@@ -467,7 +467,7 @@ strip_workspace_name no
 
 # bar {
 #	font pango: Noto Sans Regular 10
-#	status_command i3blocks -c ~/.config/i3/i3blocks-2.conf
+#	status_command i3blocks -c ~/.config/sway/i3blocks-2.conf
 #	i3bar_command i3bar --transparency
 #	output HDMI-0
 #	position bottom
@@ -502,20 +502,20 @@ bindsym $mod+d exec wofi --show drun
 bindsym $mod+t exec wofi -show window
 
 #bindsym F10 exec wofi -show window \
-#		-config ~/.config/i3/.wofi/wofidmenu.rasi
+#		-config ~/.config/sway/.wofi/wofidmenu.rasi
 
 ## wofi bindings to manage clipboard (install wofi-greenclip from the AUR)
 
 #exec greenclip daemon>/dev/null
 #bindsym $mod+c exec wofi -modi "clipboard:greenclip print" -show clipboard \
-#		-config ~/.config/i3/.wofi/wofidmenu.rasi
+#		-config ~/.config/sway/.wofi/wofidmenu.rasi
 
 #####################################
 # Application menu handled by wofi: #
 #####################################
 
-# bindsym $mod+semicolon exec keynav -f ~/.config/i3/.keynav
-exec keynav daemonize -f ~/.config/i3/.keynav
+# bindsym $mod+semicolon exec keynav -f ~/.config/sway/.keynav
+exec keynav daemonize -f ~/.config/sway/.keynav
 
 
 #########################################################3
