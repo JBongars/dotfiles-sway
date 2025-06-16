@@ -39,6 +39,7 @@
 // Configuration - modules-right
 
     "modules-right": [
+    	"custom/terminal",
         "custom/keyboard-layout",
         "tray",
         "backlight",
@@ -47,15 +48,25 @@
         "clock"
     ],
 
+    "custom/terminal": {
+        "format": "",
+        "on-click": "alacritty",
+        "tooltip": false
+    },
+
     // "network": {
-    //     "format-disabled": " Disabled",
-    //     "format-wifi": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
-    //     "tooltip-format-wifi": "{essid}",
-    //     "format-ethernet": "󰈀 {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
-    //     "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-    //     "format-disconnected": " Disconnected",
-    //     "on-click": "alacritty -e nmtui",
-    //     "interval": 2
+    //     "interval": 1,
+    //     "format": "{ifname}",
+    //     "format-wifi": "{icon} {bandwidthDownBits}  {bandwidthUpBits} ",
+    //     "format-ethernet": "{icon} {bandwidthDownBits}  {bandwidthUpBits} ",
+    //     "format-disconnected": "󰌙",
+    //     "tooltip-format": "{ipaddr}",
+    //     "format-linked": "󰈁 {ifname} (No IP)",
+    //     "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+    //     "tooltip-format-ethernet": "{ifname} 󰌘",
+    //     "tooltip-format-disconnected": "󰌙 Disconnected",
+    //     "max-length": 30,
+    //     "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"]
     // },
 
     "custom/keyboard-layout": {
