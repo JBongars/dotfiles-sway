@@ -39,7 +39,6 @@
 // Configuration - modules-right
 
     "modules-right": [
-    	"network",
         "custom/keyboard-layout",
         "tray",
         "backlight",
