@@ -1,10 +1,11 @@
 exec ~/set_once.sh
 
 input "type:keyboard" {
-    xkb_layout "us"
-    xkb_options "caps:hyper"
+    xkb_layout "us,us"
+    xkb_variant ",dvorak"
+    xkb_options "grp:alt_shift_toggle,caps:hyper"
     # Alternative if the above doesn't work:
-    # xkb_options "caps:none,altwin:hyper_win"
+    # xkb_options "grp:alt_shift_toggle,caps:none,altwin:hyper_win"
 }
 
 # sets display scaling to 1 for all displays
