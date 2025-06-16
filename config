@@ -22,7 +22,8 @@ set $i3scripts $i3config/scripts
 workspace_layout default
 
 #border indicator on windows:
-new_window pixel 1
+default_border pixel 1
+default_floating_border pixel 1
 
 # thin borders
 hide_edge_borders both
@@ -322,7 +323,14 @@ exec ~/.screenlayout/00-default
 # set wallpaper
 # exec sleep 2 && nitrogen --restore
 # output * bg /path/to/wallpaper fill
-output * bg "#000000" solid
+output * bg "#000000" solid_color
+
+# Image options
+# output * bg ~/wallpaper.jpg fill
+# output * bg ~/wallpaper.jpg fit  
+# output * bg ~/wallpaper.jpg stretch
+# output * bg ~/wallpaper.jpg center
+# output * bg ~/wallpaper.jpg tile
 
 # set powersavings for display:
 exec swayidle -w timeout 480 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
