@@ -69,7 +69,7 @@
 #battery,
 #clock,
 #tray {
-    padding: 0px 0px;
+    padding: 0px 5px;
     margin: 0px;
 }
 
@@ -90,6 +90,7 @@
 
 #workspaces {
     font-size: 10px;
+    margin-right: 10px;
 }
 
 #workspaces button {
@@ -101,7 +102,7 @@
 
 #workspaces button.focused {
     background-color: #807dfe;
-    color: #ffffff;
+    color: #000000;
 }
 
 #workspaces button.urgent {
