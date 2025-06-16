@@ -1,0 +1,24 @@
+waybar
+sway
+alacritty
+wofi
+swaylock
+grim
+imagemagick
+jq
+brightnessctl
+pavucontrol
+htop
+dunst
+yad
+power-profiles-daemon
+pipewire 
+pipewire-pulse 
+wireplumber
+networkmanager
+ttf-jetbrains-mono
+ttf-font-awesome
+noto-fonts-emoji
+
+# install with yay
+ttf-nerd-fonts-symbols-mono

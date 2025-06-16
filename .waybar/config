@@ -115,7 +115,7 @@
     "memory": {
         "interval": 5,
         "format": "{:>3}%",
-        "on-click": "footclient -T waybar_htop -e htop", 
+        "on-click": "alacritty -e htop", 
         "states": {
             "warning": 70,
             "critical": 90
