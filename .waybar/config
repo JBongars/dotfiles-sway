@@ -194,11 +194,11 @@
         "format": "󰓅 {}",
         "on-click": "~/.config/sway/scripts/power-profiles.sh",
         "tooltip": false
-    }
+    },
 
     "custom/power": {
           "format":"⏻",
           "on-click": "exec ~/.config/sway/scripts/powermenu.sh",
           "tooltip": false
-    },
+    }
 }
