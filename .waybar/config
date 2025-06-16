@@ -1,57 +1,56 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "bottom", // Waybar position (top|bottom|left|right)
-    // "height": 20, // Auto-height is used when commented
-    // "width": 1280, // Full screen width when commented
-    "spacing": 4, // Gaps between modules (in px)
-    // See `man waybar` for more configuration options
+    "layer": "top",
+    "position": "bottom",
+    "height": 22,
+    "spacing": 0,
+    "margin-top": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "margin-right": 0,
 
 // Configuration - modules-left
 
     "modules-left": [
-        "custom/launcher",
         "sway/workspaces",
         "sway/mode",
         "sway/window"
     ],
 
-    "custom/launcher": {
-        "format":"<span size='x-large'></span>",
-        "on-click": "wofi --show drun",
-        "tooltip": false
-    },
-
     "sway/workspaces": {
         "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{icon}",
-        "format-icons": {
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-            "10": "10"
-        }
+        "all-outputs": false,
+        "format": " {name} ",
+        "format-icons": {}
     },
 
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>",
-        "tooltip": false
-    },
-
-    "sway/window": {
-        "format": "{}",
-        //"all-outputs": true, // Active window shows only on active display when commented
-        "max-length": 120
-    },
 
 // Configuration - modules-center
     
-    "modules-center": [
-        "network"
+    // "modules-center": [
+    //     "sway/window"
+    // ],
+
+    // "sway/window": {
+    //     "format": "{}",
+    //     //"all-outputs": true, // Active window shows only on active display when commented
+    //     "max-length": 120
+    // },
+
+// Configuration - modules-right
+
+    "modules-right": [
+    	"network",
+        "custom/keyboard-layout",
+        "cpu",
+        "memory",
+        "backlight",
+        "pulseaudio",
+        "battery",
+        "clock",
+        "tray",
+	"temperature",
+	"custom/power-profile",
+	"custom/power"
     ],
 
     "network": {
@@ -65,23 +64,6 @@
         "interval": 2
     },
 
-// Configuration - modules-right
-
-    "modules-right": [
-        "custom/keyboard-layout",
-        "idle_inhibitor",
-        "cpu",
-        "memory",
-        "backlight",
-        "pulseaudio",
-        "battery",
-        "clock",
-        "tray",
-	"temperature",
-	"custom/power-profile",
-	"custom/power"
-    ],
-
     "custom/keyboard-layout": {
       	"exec": "i=$(swaymsg -t get_inputs); echo \"\"; echo \"$i\" | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4",
         "format": "",
@@ -90,16 +72,6 @@
         // See example config for sending signal to Waybar in ~/.config/sway/config.d/input
         "signal": 1,
         "on-click": "~/.config/waybar/scripts/keyhint.sh"
-    },
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        },
-        "tooltip-format-activated": "Idle Inhibitor Activated",
-        "tooltip-format-deactivated": "Idle Inhibitor Deactivated"
     },
 
     "cpu": {
