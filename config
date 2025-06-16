@@ -471,11 +471,7 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 # 	}
 # }
 
-exec_always {
-    pkill waybar
-    waybar -c ~/.config/sway/.waybar/config -s ~/.config/sway/.waybar/style.css
-}
-
+exec_always "pkill waybar; sleep 0.1; waybar -c ~/.config/sway/.waybar/config -s ~/.config/sway/.waybar/style.css"
 
 # you can add different bars for multidisplay setups on each display:
 # set output HDMI-0 to the display you want the bar, --transparency can be set.
