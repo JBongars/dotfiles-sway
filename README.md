@@ -30,6 +30,9 @@ chmod +x ~/.config/waybar/scripts/*
 
 # Enable services
 systemctl --user enable --now pipewire pipewire-pulse wireplumber
+
+# use ngw-displays to configure display position (optional)
+ngw-displays -o ~/.screenlayout.sway
 ```
 
 ## Key Bindings

@@ -1,7 +1,6 @@
 wayland
 sway
 waybar
-sway
 alacritty
 wofi
 swaylock
@@ -24,3 +23,4 @@ noto-fonts-emoji
 
 # install with yay
 ttf-nerd-fonts-symbols-mono
+nwg-displays # display configurator

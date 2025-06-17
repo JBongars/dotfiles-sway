@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Get the currently focused output (screen)
-FOCUSED_OUTPUT=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true).output' | tr -d '"')
+FOCUSED_OUTPUT=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true).name')
 
-# Switch to the requested workspace on the currently focused output
-swaymsg "workspace $1; move workspace to output --no-auto-back-and-forth $FOCUSED_OUTPUT"
+# Move the requested workspace to the currently focused output, then switch to it
+swaymsg "workspace number $1; move workspace to output $FOCUSED_OUTPUT"

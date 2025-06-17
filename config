@@ -1,5 +1,7 @@
 exec ~/set_once.sh
 
+include ~/.screenlayout.sway
+
 input "type:keyboard" {
     xkb_layout "us,us"
     xkb_variant "dvorak,"
