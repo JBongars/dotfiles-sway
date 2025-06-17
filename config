@@ -70,26 +70,26 @@ bindsym $mod+n focus output right
 # bindcode $mod+18    workspace number $ws9
 
 # switch to workspace - bring workspace to current screen
-bindcode $mod+10 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 1
-bindcode $mod+11 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 2
-bindcode $mod+12 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 3
-bindcode $mod+13 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 4
-bindcode $mod+14 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 5
-bindcode $mod+15 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 6
-bindcode $mod+16 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 7
-bindcode $mod+17 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 8
-bindcode $mod+18 exec ~/.config/sway/scripts/force_workspace_current_screen.sh 9
+bindcode $mod+10       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 1
+bindcode $mod+11       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 2
+bindcode $mod+12       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 3
+bindcode $mod+13       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 4
+bindcode $mod+14       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 5
+bindcode $mod+15       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 6
+bindcode $mod+16       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 7
+bindcode $mod+17       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 8
+bindcode $mod+18       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 9
 
 # move focused container to workspace
-bindcode $mod+Shift+10    move container to workspace  $ws1
-bindcode $mod+Shift+11    move container to workspace  $ws2
-bindcode $mod+Shift+12    move container to workspace  $ws3
-bindcode $mod+Shift+13    move container to workspace  $ws4
-bindcode $mod+Shift+14    move container to workspace  $ws5
-bindcode $mod+Shift+15    move container to workspace  $ws6
-bindcode $mod+Shift+16    move container to workspace  $ws7
-bindcode $mod+Shift+17    move container to workspace  $ws8
-bindcode $mod+Shift+18    move container to workspace  $ws9
+bindcode $mod+Shift+10 move container to workspace 1
+bindcode $mod+Shift+11 move container to workspace 2
+bindcode $mod+Shift+12 move container to workspace 3
+bindcode $mod+Shift+13 move container to workspace 4
+bindcode $mod+Shift+14 move container to workspace 5
+bindcode $mod+Shift+15 move container to workspace 6
+bindcode $mod+Shift+16 move container to workspace 7
+bindcode $mod+Shift+17 move container to workspace 8
+bindcode $mod+Shift+18 move container to workspace 9
 
 ######################################
 # keybindings for different actions: #
@@ -116,7 +116,20 @@ bindsym Mod1+v exec wl-paste
 bindsym $mod+Shift+e exec ~/.config/sway/scripts/powermenu
 
 # exit to lightdm login page
-bindsym Ctrl+Mod1+q exec ~/.config/sway/scripts/lightdm-lock.sh
+
+# It sucks but the best way is to just kill the session.
+# This is a limitation with Wayland unfortunately
+bindsym Ctrl+Mod1+q exec bash -c 'loginctl | grep "c" | awk "{ print \$1 }" | xargs loginctl terminate-session'
+
+# UNSECURE!!!
+# exec swayidle -w \
+#     timeout 5 'swaymsg "output * power off"' \
+#     resume 'swaymsg "output * power on"' \
+#     lock 'swaylock -f -c 000000'
+# 
+# bindsym Ctrl+Mod1+q exec loginctl lock-session
+
+# bindsym Ctrl+Mod1+q exec ~/.config/sway/scripts/sway-lock.sh
 # bindsym $mod+l exec $i3scripts/lock
 # exec xautolock -time 1 -locker $i3scripts/lock
 

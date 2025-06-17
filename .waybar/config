@@ -133,7 +133,7 @@
     },
 
     "clock": {
-	"format": "{:%a %d %b %I:%M %p}", // Mon 16 Jun 02:30 PM
+	"format": "{:%a %d %b %H:%M}", // Mon 16 Jun 14:30
         "format-alt": "󰅐 {:%OI:%M %p}",
         "tooltip-format": " {:%A %m/%d}\n\n<tt><small>{calendar}</small></tt>",
         "calendar": {
