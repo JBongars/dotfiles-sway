@@ -1,0 +1,13 @@
+show=drun,run
+allow_images=true
+image_size=25
+term=alacritty
+insensitive=true
+location=center
+no_actions=true
+prompt=Search
+width=600
+height=400
+orientation=vertical
+halign=fill
+content_halign=fill
