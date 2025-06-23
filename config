@@ -13,15 +13,16 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
 
-# Force GTK theme dark
+# Theme issue. Force dark theme
+exec systemctl --user set-environment GTK_THEME=Arc-Dark
+exec systemctl --user set-environment GTK2_RC_FILES=/usr/share/themes/Arc-Dark/gtk-2.0/gtkrc
+exec systemctl --user set-environment QT_STYLE_OVERRIDE=Arc-Dark
+
+# Configure gsettings (needed for some apps that ignore env vars)
 exec_always {
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Darker'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 }
-
-# Set environment variables for new processes
-exec systemctl --user set-environment GTK_THEME=Arc-Darker
-exec systemctl --user set-environment QT_STYLE_OVERRIDE=arc-darker
 
 include ~/.screenlayout.sway
 
@@ -92,17 +93,6 @@ bindsym $mod+Shift+n move workspace to output right
 # Focus right and left screens
 bindsym $mod+n focus output right
 # bindsym $mod+p focus output left
-
-# switch to workspace
-# bindcode $mod+10    workspace number $ws1
-# bindcode $mod+11    workspace number $ws2
-# bindcode $mod+12    workspace number $ws3
-# bindcode $mod+13    workspace number $ws4
-# bindcode $mod+14    workspace number $ws5
-# bindcode $mod+15    workspace number $ws6
-# bindcode $mod+16    workspace number $ws7
-# bindcode $mod+17    workspace number $ws8
-# bindcode $mod+18    workspace number $ws9
 
 # switch to workspace - bring workspace to current screen
 bindcode $mod+10       exec ~/.config/sway/scripts/force_workspace_current_screen.sh 1
@@ -229,8 +219,19 @@ bindsym $mod+f fullscreen toggle
 #NOTE: stacking is not useful. You can achieve the same thing with tabbed mode and there is a plugin to find window
 
 # bindsym $mod+s layout stacking
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
 bindsym $mod+g layout tabbed
 bindsym $mod+e layout toggle split
+
+# bindsym $mod+g [workspace=__focused__] layout tabbed
+# bindsym $mod+s exec "autotiling --once"
+
+# Doesn't work well when switching to tabbed mode
+# autotiling script
+# https://github.com/nwg-piotr/autotiling
+# `yay -S autotiling 
+# exec_always autotiling
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -238,52 +239,10 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
-# I do not use this
-# bindsym $mod+a focus parent
-
 # open new empty workspace
 # bindsym $mod+Shift+n exec ~/.config/sway/scripts/empty_workspace
 
 # Multimedia Keys
-# volume
-
-# replaced with swayosd
-# exec swayosd-server
-# #
-# bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
-# bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower  
-# bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-#
-# bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
-# bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
-
-# Backlight control
-# Backlight setting using dunst osc
-# bindsym XF86MonBrightnessUp exec ~/.config/sway/scripts/volume_brightness.sh brightness_up
-# bindsym XF86MonBrightnessDown exec ~/.config/sway/scripts/volume_brightness.sh brightness_down
-
-# use meta keys showing osc using dunst
-# bindsym XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume_brightness.sh volume_up
-# bindsym XF86AudioLowerVolume exec ~/.config/sway/scripts/volume_brightness.sh volume_down
-
-# gradular volume control
-
-
-# mute
-#bindsym XF86AudioMute exec amixer sset Master toggle && killall -USR1 i3blocks
-# use meta keys showing osc using dunst
-# bindsym XF86AudioMute exec ~/.config/sway/scripts/volume_brightness.sh volume_mute
-
-# mic mute toggle
-# bindsym XF86AudioMicMute exec amixer sset Capture toggle
-
-# # audio control
-# bindsym XF86AudioPlay exec playerctl play-pause 
-# # Above line will also work for pausing
-# bindsym XF86AudioNext exec playerctl next
-# bindsym XF86AudioPrev exec playerctl previous
-#
 exec avizo-service &
 
 # Volume controls
@@ -295,12 +254,31 @@ bindsym --locked XF86AudioMute exec volumectl toggle-mute
 bindsym --locked XF86MonBrightnessUp exec lightctl up
 bindsym --locked XF86MonBrightnessDown exec lightctl down
 
-# Redirect sound to headphones
-# bindsym $mod+p exec /usr/local/bin/switch-audio-port
-
 ## App shortcuts
-bindsym $mod+c exec /opt/chrome/chrome 
-# bindsym $mod+z exec /usr/bin/thunar
+
+# Enter Chrome mode
+bindsym $mod+c mode "chrome"
+
+mode "chrome" {
+    # Default profile
+    bindsym c exec /opt/chrome/chrome, mode "default"
+    
+    # Profiles 1-9
+    bindsym 0 exec /opt/google/chrome/chrome --profile-directory="Default"   --restore-last-session, mode "default"
+    bindsym 1 exec /opt/google/chrome/chrome --profile-directory="Profile 1" --restore-last-session, mode "default"
+    bindsym 2 exec /opt/google/chrome/chrome --profile-directory="Profile 2" --restore-last-session, mode "default"
+    bindsym 3 exec /opt/google/chrome/chrome --profile-directory="Profile 3" --restore-last-session, mode "default"
+    bindsym 4 exec /opt/google/chrome/chrome --profile-directory="Profile 4" --restore-last-session, mode "default"
+    bindsym 5 exec /opt/google/chrome/chrome --profile-directory="Profile 5" --restore-last-session, mode "default"
+    bindsym 6 exec /opt/google/chrome/chrome --profile-directory="Profile 6" --restore-last-session, mode "default"
+    bindsym 7 exec /opt/google/chrome/chrome --profile-directory="Profile 7" --restore-last-session, mode "default"
+    bindsym 8 exec /opt/google/chrome/chrome --profile-directory="Profile 8" --restore-last-session, mode "default"
+    bindsym 9 exec /opt/google/chrome/chrome --profile-directory="Profile 9" --restore-last-session, mode "default"
+    
+    # Exit mode
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
 
 # Full-screen screenshot (Print key) - saves to file and clipboard
 bindsym Print exec grim /tmp/screenshot.png && \
@@ -314,23 +292,8 @@ bindsym $mod+Shift+d exec grim -g "$(slurp)" /tmp/screenshot.png && \
     mv /tmp/screenshot.png ~/Pictures/.screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png && \
     notify-send "Screenshot selection saved"
 
-# Power Profiles menu switcher (wofi)
-# bindsym $mod+Shift+p exec ~/.config/sway/scripts/power-profiles
-
 # configuration for workspace behaviour: #
 ##########################################
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
 
 #TODO: This does no work
 
@@ -339,39 +302,6 @@ set $ws9 "9"
 
 # automatic set focus new window if it opens on another workspace than the current:
 # for_window [app_id=alacritty] focus
-
-##############
-# compositor #
-##############
-
-#NOTE: To make the windows semi transparent but I don't use wallpapers
-
-# transparency
-# uncomment one of them to be used
-# options could need changes, related to used GPU and drivers.
-# to find the right setting consult the archwiki or ask at the forum.
-#
-# xcompmgr: https://wiki.archlinux.org/title/Xcompmgr
-# manpage: https://man.archlinux.org/man/xcompmgr.1.en
-# install xcompmgr package to use it (yay -S xcompmgr)
-#exec xcompmgr -C -n &
-# or an more specialized config like this:
-#exec xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
-#
-# or:
-#
-# picom: https://wiki.archlinux.org/title/Picom
-# manpage: https://man.archlinux.org/man/picom.1.en
-# The default configuration is available in /etc/xdg/picom.conf 
-# For modifications, it can be copied to ~/.config/picom/picom.conf or ~/.config/picom.conf
-# install picom package (yay -S picom)
-# start using default config 
-#exec_always picom -b
-#exec picom --config ~/.config/picom/picom.conf
-
-#
-# for custom config:
-#exec_always picom --config  ~/.config/picom.conf
 
 #############################################
 # autostart applications/services on login: #
@@ -398,13 +328,11 @@ exec dex --autostart --environment i3
 exec ~/.screenlayout/00-default
 
 # set wallpaper
-# exec sleep 2 && nitrogen --restore
-# output * bg /path/to/wallpaper fill
 # output * bg "#000000" solid_color
-# output * bg ~/wallpaper.jpg fill #000000
+output * bg ~/wallpaper.jpg fill #000000
 
 # Image options
-output * bg ~/wallpaper.jpg fill
+# output * bg ~/wallpaper.jpg fill
 # output * bg ~/wallpaper.jpg fit  
 # output * bg ~/wallpaper.jpg stretch
 # output * bg ~/wallpaper.jpg center
@@ -418,28 +346,12 @@ output * bg ~/wallpaper.jpg fill
 
 #NOTE: I realise auto-locks are not useful
 
-# use xautolock to use autosuspend rules for mobile devices
-# https://wiki.archlinux.org/title/Session_lock#xautolock
-# exec xautolock -time 60 -notify 30 -notifier "notify-send 'Locking screen in 30 seconds'" -locker "i3lock" --suspend
-# exec xautolock -time 60 -notify 30 -notifier "notify-send 'Locking screen in 30 seconds'" -locker "i3lock" -killer "systemctl suspend" -killtime 65
-
-
 # Desktop notifications
 # exec dunst --config ~/.config/sway/.dunst/dunstrc -print | tee -a ~/.logs/dunst
 # exec mako -c ~/.config/sway/.mako/config
-# mako config needs to be stowed to .config
-# ( cd ~/.config && ln -s ./sway/.mako mako
 exec mako
 
-# exec dbus-launch /usr/bin/dunst --config ~/.config/sway/.dunst/dunstrc -print | tee -a ~/.logs/dunst
-# exec /usr/bin/dunst --config ~/.config/sway/.dunst/dunstrc -print | tee -a ~/.logs/dunst
-
 #WARN: This does not work with tabbed mode
-
-# autotiling script
-# https://github.com/nwg-piotr/autotiling
-# `yay -S autotiling 
-# exec_always autotiling
 
 ###############
 # system tray #
@@ -550,9 +462,18 @@ bindsym $mod+t exec wofi -show window
 #####################################
 
 #TODO replace with warpd
-# bindsym $mod+semicolon exec keynav -f ~/.config/sway/.keynav
 # exec keynav daemonize -f ~/.config/sway/.keynav
+# bindsym $mod+semicolon exec keynav -f ~/.config/sway/.keynav
 
+bindsym $mod+semicolon exec keynav
+
+
+
+#####################################
+# Command Mode                      #
+#####################################
+# bindsym $mod+colon exec echo "" | wofi --dmenu --prompt "sway:" | xargs -I {} swaymsg {}
+bindsym $mod+colon exec ~/.config/sway/scripts/sway-commander.sh
 
 #########################################################3
 # USER CONFIG
