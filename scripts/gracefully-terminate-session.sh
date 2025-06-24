@@ -8,20 +8,15 @@
 
 # Step 1: Immediately lock screen with goodbye message
 swaylock -f \
+    --config "$HOME/.config/sway/.swaylock/config" \
+    --screenshots \
     --ignore-empty-password \
-    --show-failed-attempts \
     --daemonize \
-    --indicator \
     --clock \
+    --indicator-idle-visible \
+    --indicator \
     --timestr "Good bye." \
     --datestr "" \
-    --color 000000 \
-    --text-color ffffff \
-    --ring-color 333333 \
-    --key-hl-color ffffff \
-    --line-color 000000 \
-    --inside-color 000000 \
-    --separator-color 000000 &
 
 # Give swaylock a moment to initialize
 sleep 0.5
