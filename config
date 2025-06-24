@@ -139,6 +139,11 @@ bindsym $mod+Shift+q exec "swaymsg '[workspace=__focused__] kill'"
 bindsym Alt+c exec ~/.config/sway/scripts/send-copy.sh
 bindsym Alt+v exec ~/.config/sway/scripts/send-paste.sh
 
+# alt copy and paste keys if one hand is on the mouse
+bindsym Alt+j exec ~/.config/sway/scripts/send-copy.sh
+bindsym Alt+k exec ~/.config/sway/scripts/send-paste.sh
+
+
 # Terminate current user session (logout)
 # bindsym Ctrl+Mod1+q exec loginctl terminate-session $XDG_SESSION_ID
 # bindsym Ctrl+Mod1+q exec swaymsg exit
@@ -199,10 +204,33 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# # split in horizontal orientation
-# bindsym $mod+s split h
-# # split in vertical orientation
-# bindsym $mod+v split v
+# Enter resize mode
+bindsym $mod+r mode "resize"
+
+# resize window
+mode "resize" {
+    # Resize with hjkl (vim-like)
+    bindsym h resize grow width 10 px or 10 ppt
+    bindsym j resize shrink height 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink width 10 px or 10 ppt
+
+    # Or use arrow keys
+    bindsym Left resize grow width 10 px or 10 ppt
+    bindsym Down resize shrink height 10 px or 10 ppt
+    bindsym Up resize grow height 10 px or 10 ppt
+    bindsym Right resize shrink width 10 px or 10 ppt
+
+    # Exit resize mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+# split in horizontal orientation
+bindsym $mod+v split h
+# split in vertical orientation
+bindsym $mod+s split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -212,11 +240,10 @@ bindsym $mod+f fullscreen toggle
 # bindsym $mod+s layout stacking
 bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
-bindsym $mod+g layout tabbed
-bindsym $mod+e layout toggle split
 
-# bindsym $mod+g [workspace=__focused__] layout tabbed
-# bindsym $mod+s exec "autotiling --once"
+bindsym $mod+g layout tabbed
+bindsym $mod+Shift+g [workspace=__focused__] layout tabbed
+bindsym $mod+e layout toggle split
 
 # Doesn't work well when switching to tabbed mode
 # autotiling script
@@ -245,6 +272,10 @@ bindsym --locked XF86AudioMute exec volumectl toggle-mute
 bindsym --locked XF86MonBrightnessUp exec lightctl up
 bindsym --locked XF86MonBrightnessDown exec lightctl down
 
+# Acme mouse buttons (WIP)
+bindsym --whole-window BTN_SIDE exec ~/.config/sway/scripts/acme.sh "BTN_SIDE"
+bindsym --whole-window BTN_EXTRA exec ~/.config/sway/scripts/acme.sh "BTN_EXTRA"
+
 ## App shortcuts
 
 # Enter Chrome mode
@@ -268,7 +299,6 @@ mode "chrome" {
     
     # Exit mode
     bindsym Escape mode "default"
-    bindsym Return mode "default"
 }
 
 # Full-screen screenshot (Print key) - saves to file and clipboard
@@ -318,20 +348,10 @@ output * bg ~/wallpaper.jpg fill #000000
 # output * bg ~/wallpaper.jpg center
 # output * bg ~/wallpaper.jpg tile
 
-# set powersavings for display:
-# exec swayidle -w timeout 480 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
-
-# disable power saving (for example if using xscreensaver)
-#exec xset -dpms
-
-#NOTE: I realise auto-locks are not useful
-
 # Desktop notifications
 # exec dunst --config ~/.config/sway/.dunst/dunstrc -print | tee -a ~/.logs/dunst
 # exec mako -c ~/.config/sway/.mako/config
 exec mako
-
-#WARN: This does not work with tabbed mode
 
 ###############
 # system tray #
