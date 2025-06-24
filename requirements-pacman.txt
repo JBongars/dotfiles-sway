@@ -28,6 +28,7 @@ yad
 # install with yay
 nwg-displays # display configurator
 ttf-nerd-fonts-symbols-mono
+warpd-git
 
 # modified repo
 https://github.com/JBongars/avizo/tree/darkmode-patch
