@@ -1,0 +1,24 @@
+# Movement keys (hjkl)
+left: h
+down: j  
+up: k
+right: l
+
+# Mouse buttons: i=left click, d=right click
+buttons: i d
+
+# Drag toggle (shift+i)
+drag: I
+
+# Scrolling (shift+j/k)
+scroll_down: J
+scroll_up: K
+
+# Exit warpd
+exit: q escape
+
+# Optional: reduce movement speed for finer control
+speed: 220
+
+# Optional: hint mode settings
+hint_chars: asdfghjklqwertyuiopzxcvbnm

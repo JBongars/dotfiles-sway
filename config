@@ -24,6 +24,9 @@ exec_always {
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 }
 
+# Set environment variables for Qt themes
+set $QT_QPA_PLATFORMTHEME qt5ct
+
 include ~/.screenlayout.sway
 
 input "type:keyboard" {
@@ -136,44 +139,32 @@ bindsym $mod+Shift+q exec "swaymsg '[workspace=__focused__] kill'"
 bindsym Alt+c exec ~/.config/sway/scripts/send-copy.sh
 bindsym Alt+v exec ~/.config/sway/scripts/send-paste.sh
 
-# exit-menu
-#TODO: Find out about power menu
-bindsym $mod+Shift+e exec ~/.config/sway/scripts/powermenu
+# Terminate current user session (logout)
+# bindsym Ctrl+Mod1+q exec loginctl terminate-session $XDG_SESSION_ID
+# bindsym Ctrl+Mod1+q exec swaymsg exit
+bindsym Ctrl+Mod1+q exec ~/.config/sway/scripts/gracefully-terminate-session.sh
 
-# exit to lightdm login page
+# Screen idle/lock management - 120 minutes timeout
+exec swayidle -w \
+    timeout 7200 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
 
-# It sucks but the best way is to just kill the session.
-# This is a limitation with Wayland unfortunately
-bindsym Ctrl+Mod1+q exec bash -c 'loginctl | grep "c" | awk "{ print \$1 }" | xargs loginctl terminate-session'
-
-# UNSECURE!!!
-# exec swayidle -w \
-#     timeout 5 'swaymsg "output * power off"' \
-#     resume 'swaymsg "output * power on"' \
-#     lock 'swaylock -f -c 000000'
-
-# exec swayidle -w \
-#      lock 'swaylock -f -c 000000'
+# Manual screen lock with custom config
 bindsym Ctrl+shift+q exec swaylock -f \
-                --config "$HOME/.config/sway/.swaylock/config" \
-                --screenshots \
-		--ignore-empty-password \
-		--daemonize \
-		--indicator-caps-lock \
-		--indicator \
-		--clock \
-		--timestr "%Hh %Mm %Ss"\
-		--datestr "%b-%d-%Y" \
-		--show-failed-attempts \
-		--indicator-idle-visible
-
-# bindsym Ctrl+Mod1+q exec ~/.config/sway/scripts/sway-lock.sh
-# bindsym $mod+l exec $i3scripts/lock
-# exec xautolock -time 1 -locker $i3scripts/lock
+    --config "$HOME/.config/sway/.swaylock/config" \
+    --screenshots \
+    --ignore-empty-password \
+    --daemonize \
+    --indicator-caps-lock \
+    --indicator \
+    --clock \
+    --timestr "%Hh %Mm %Ss" \
+    --datestr "%b-%d-%Y" \
+    --show-failed-attempts \
+    --indicator-idle-visible
 
 # theme manager
-# Set environment variables for Qt themes
-set $QT_QPA_PLATFORMTHEME qt5ct
 
 # Combined action: reload i3 config, restart i3, and apply xmodmap
 bindsym Mod4+Shift+r exec "swaymsg reload"
@@ -292,23 +283,12 @@ bindsym $mod+Shift+d exec grim -g "$(slurp)" /tmp/screenshot.png && \
     mv /tmp/screenshot.png ~/Pictures/.screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png && \
     notify-send "Screenshot selection saved"
 
-# configuration for workspace behaviour: #
-##########################################
-
-#TODO: This does no work
-
-# bind program to workspace and focus to them on startup:
-# assign [app_id="alacritty"] $ws1
-
-# automatic set focus new window if it opens on another workspace than the current:
-# for_window [app_id=alacritty] focus
-
 #############################################
 # autostart applications/services on login: #
 #############################################
 
 #get auth work with polkit-gnome
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # dex execute .desktop files + apps using /etc/xdg/autostart.
 # when second to i3 a DE is installed or mixed usage of i3 + xfce4 or GNOME
@@ -316,7 +296,7 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # if enabled you should comment welcome app.
 # https://github.com/jceb/dex
 #exec dex -a -s /etc/xdg/autostart/:~/.config/autostart/
-exec dex --autostart --environment i3
+# exec dex --autostart --environment i3
 
 # num lock activated
 #exec numlockx on
@@ -461,11 +441,30 @@ bindsym $mod+t exec wofi -show window
 # Application menu handled by wofi: #
 #####################################
 
-#TODO replace with warpd
-# exec keynav daemonize -f ~/.config/sway/.keynav
-# bindsym $mod+semicolon exec keynav -f ~/.config/sway/.keynav
+# Enter warpd mode
+# Enter warpd mode
+bindsym $mod+semicolon mode "warpd"
 
-bindsym $mod+semicolon exec keynav
+mode "warpd" {
+    bindsym x exec warpd --hint --config ~/.config/sway/.warpd/config; mode "default"
+    bindsym shift+x exec warpd --hint2 --config ~/.config/sway/.warpd/config; mode "default" 
+    bindsym g exec warpd --grid --config ~/.config/sway/.warpd/config; mode "default"
+    bindsym c exec warpd --normal --config ~/.config/sway/.warpd/config; mode "default"
+    bindsym semicolon exec warpd --history --config ~/.config/sway/.warpd/config; mode "default"
+    bindsym s exec warpd --screen --config ~/.config/sway/.warpd/config; mode "default"
+    
+    # *--oneshot*: When paired with one of the mode flags, exit warpd as soon as the mode is complete (i.e don't drop into normal mode). When used with normal mode, exit as soon as a mouse button is pressed (without pressing it). If no mode flag is specified, the default behaviour is the same as --normal --oneshot. Principally useful for scripting.
+    # *-q*, *--query*: Consume a list of hints from stdin and print the result to stdout (in the form <x> <y> <hint>). Each line should have the form *<label> <x> <y>*. May be used in conjunction with --click.
+    # *--drag*: Automatically start a drag operation when paired with --normal.
+    # *--move '<x> <y>'*: Move the pointer to the specified coordinates and exit.
+    # *--click <button>*: Send a mouse click corresponding to the supplied button and exit. May be paired with --move or --oneshot (in which case the click will occur at the end of the selection).
+    # *--record*: When used with --click, adds the click event to warpd's history.
+    
+    # Exit mode
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym q mode "default"
+}
 
 
 
