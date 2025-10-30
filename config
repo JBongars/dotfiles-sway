@@ -55,6 +55,9 @@ font pango: Noto Sans Regular 10
 # set leader key to hyper
 set $mod Mod3
 
+# set other environment variables
+set $terminal_client alacritty
+
 set $i3config $HOME/.config/sway
 set $i3scripts $i3config/scripts
 
@@ -125,15 +128,37 @@ bindcode $mod+Shift+18 move container to workspace 9
 
 # start a terminal
 # bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec $terminal_client
 # for emergencies
-bindsym Mod4+Return exec alacritty
+bindsym Mod4+Return exec $terminal_client
 
 # kill focused window
 bindsym $mod+q kill
 
 # Kill all windows in current workspace
-bindsym $mod+Shift+q exec "swaymsg '[workspace=__focused__] kill'"
+# bindsym $mod+Shift+q exec "swaymsg '[workspace=__focused__] kill'"
+
+bindsym $mod+Shift+q mode "rm_workspace"
+
+# resize window
+mode "rm_workspace" {
+    # bindsym $mod+q exec "swaymsg '[workspace=__focused__] kill'" , mode "default"
+    bindsym $mod+q exec ~/.config/sway/scripts/organise-desktop.sh , mode "default"
+
+    bindsym 1 exec "swaymsg '[workspace=1] kill'" , mode "default"
+    bindsym 2 exec "swaymsg '[workspace=2] kill'" , mode "default"
+    bindsym 3 exec "swaymsg '[workspace=3] kill'" , mode "default"
+    bindsym 4 exec "swaymsg '[workspace=4] kill'" , mode "default"
+    bindsym 5 exec "swaymsg '[workspace=5] kill'" , mode "default"
+    bindsym 6 exec "swaymsg '[workspace=6] kill'" , mode "default"
+    bindsym 7 exec "swaymsg '[workspace=7] kill'" , mode "default"
+    bindsym 8 exec "swaymsg '[workspace=8] kill'" , mode "default"
+    bindsym 9 exec "swaymsg '[workspace=9] kill'" , mode "default"
+
+    # Exit mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # Use M-c and M-v for copy/paste with wayland
 bindsym Alt+c exec ~/.config/sway/scripts/send-copy.sh
@@ -142,7 +167,6 @@ bindsym Alt+v exec ~/.config/sway/scripts/send-paste.sh
 # alt copy and paste keys if one hand is on the mouse
 bindsym Alt+j exec ~/.config/sway/scripts/send-copy.sh
 bindsym Alt+k exec ~/.config/sway/scripts/send-paste.sh
-
 
 # Terminate current user session (logout)
 # bindsym Ctrl+Mod1+q exec loginctl terminate-session $XDG_SESSION_ID
@@ -210,16 +234,16 @@ bindsym $mod+r mode "resize"
 # resize window
 mode "resize" {
     # Resize with hjkl (vim-like)
-    bindsym h resize grow width 10 px or 10 ppt
-    bindsym j resize shrink height 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize shrink width 10 px or 10 ppt
+    bindsym h resize grow width 5 px or 5 ppt
+    bindsym j resize shrink height 5 px or 5 ppt
+    bindsym k resize grow height 5 px or 5 ppt
+    bindsym l resize shrink width 5 px or 5 ppt
 
     # Or use arrow keys
-    bindsym Left resize grow width 10 px or 10 ppt
-    bindsym Down resize shrink height 10 px or 10 ppt
-    bindsym Up resize grow height 10 px or 10 ppt
-    bindsym Right resize shrink width 10 px or 10 ppt
+    bindsym Left resize grow width 5 px or 5 ppt
+    bindsym Down resize shrink height 5 px or 5 ppt
+    bindsym Up resize grow height 5 px or 5 ppt
+    bindsym Right resize shrink width 5 px or 5 ppt
 
     # Exit resize mode
     bindsym Return mode "default"
@@ -234,6 +258,8 @@ bindsym $mod+s split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+# chrome doesn't seem to work with $mod+f
+bindsym $mod+p fullscreen toggle
 
 #NOTE: stacking is not useful. You can achieve the same thing with tabbed mode and there is a plugin to find window
 
@@ -278,24 +304,46 @@ bindsym --whole-window BTN_EXTRA exec ~/.config/sway/scripts/acme.sh "BTN_EXTRA"
 
 ## App shortcuts
 
-# Enter Chrome mode
-bindsym $mod+c mode "chrome"
+# We no longer use chrome.
+# bindsym $mod+c mode "chrome"
+# 
+# mode "chrome" {
+#     # Default profile
+#     bindsym c exec /opt/chrome/chrome, mode "default"
+#     
+#     # Profiles 1-9
+#     bindsym 0 exec /opt/google/chrome/chrome --profile-directory="Default"   --restore-last-session, mode "default"
+#     bindsym 1 exec /opt/google/chrome/chrome --profile-directory="Profile 1" --restore-last-session, mode "default"
+#     bindsym 2 exec /opt/google/chrome/chrome --profile-directory="Profile 2" --restore-last-session, mode "default"
+#     bindsym 3 exec /opt/google/chrome/chrome --profile-directory="Profile 3" --restore-last-session, mode "default"
+#     bindsym 4 exec /opt/google/chrome/chrome --profile-directory="Profile 4" --restore-last-session, mode "default"
+#     bindsym 5 exec /opt/google/chrome/chrome --profile-directory="Profile 5" --restore-last-session, mode "default"
+#     bindsym 6 exec /opt/google/chrome/chrome --profile-directory="Profile 6" --restore-last-session, mode "default"
+#     bindsym 7 exec /opt/google/chrome/chrome --profile-directory="Profile 7" --restore-last-session, mode "default"
+#     bindsym 8 exec /opt/google/chrome/chrome --profile-directory="Profile 8" --restore-last-session, mode "default"
+#     bindsym 9 exec /opt/google/chrome/chrome --profile-directory="Profile 9" --restore-last-session, mode "default"
+#     
+#     # Exit mode
+#     bindsym Escape mode "default"
+# }
 
-mode "chrome" {
+bindsym $mod+c mode "firefox"
+
+mode "firefox" {
     # Default profile
-    bindsym c exec /opt/chrome/chrome, mode "default"
+    bindsym c exec firefox, mode "default"
     
-    # Profiles 1-9
-    bindsym 0 exec /opt/google/chrome/chrome --profile-directory="Default"   --restore-last-session, mode "default"
-    bindsym 1 exec /opt/google/chrome/chrome --profile-directory="Profile 1" --restore-last-session, mode "default"
-    bindsym 2 exec /opt/google/chrome/chrome --profile-directory="Profile 2" --restore-last-session, mode "default"
-    bindsym 3 exec /opt/google/chrome/chrome --profile-directory="Profile 3" --restore-last-session, mode "default"
-    bindsym 4 exec /opt/google/chrome/chrome --profile-directory="Profile 4" --restore-last-session, mode "default"
-    bindsym 5 exec /opt/google/chrome/chrome --profile-directory="Profile 5" --restore-last-session, mode "default"
-    bindsym 6 exec /opt/google/chrome/chrome --profile-directory="Profile 6" --restore-last-session, mode "default"
-    bindsym 7 exec /opt/google/chrome/chrome --profile-directory="Profile 7" --restore-last-session, mode "default"
-    bindsym 8 exec /opt/google/chrome/chrome --profile-directory="Profile 8" --restore-last-session, mode "default"
-    bindsym 9 exec /opt/google/chrome/chrome --profile-directory="Profile 9" --restore-last-session, mode "default"
+    # Profiles 0-
+    bindsym 0 exec ~/.config/sway/scripts/start-firefox.sh "default-release",   mode "default"
+    bindsym 1 exec ~/.config/sway/scripts/start-firefox.sh "1",                 mode "default"
+    bindsym 2 exec ~/.config/sway/scripts/start-firefox.sh "2",                 mode "default"
+    bindsym 3 exec ~/.config/sway/scripts/start-firefox.sh "3",                 mode "default"
+    bindsym 4 exec ~/.config/sway/scripts/start-firefox.sh "4",                 mode "default"
+    bindsym 5 exec ~/.config/sway/scripts/start-firefox.sh "5",                 mode "default"
+    bindsym 6 exec ~/.config/sway/scripts/start-firefox.sh "6",                 mode "default"
+    bindsym 7 exec ~/.config/sway/scripts/start-firefox.sh "7",                 mode "default"
+    bindsym 8 exec ~/.config/sway/scripts/start-firefox.sh "8",                 mode "default"
+    bindsym 9 exec ~/.config/sway/scripts/start-firefox.sh "9",                 mode "default"
     
     # Exit mode
     bindsym Escape mode "default"
@@ -361,6 +409,7 @@ exec mako
 
 # start blueman app for managing bluetooth devices from tray:
 exec blueman-tray
+exec blueman-applet
 
 # networkmanager-applet
 exec nm-applet
@@ -373,30 +422,8 @@ exec wl-paste --watch cliphist store
 ##################
 
 # set floating (nontiling) for apps needing it
-for_window [app_id="yad" instance="yad"] floating enable
-for_window [app_id="galculator" instance="galculator"] floating enable
-for_window [app_id="blueberry.py" instance="blueberry.py"] floating enable
-
-for_window [class="Yad" instance="yad"] floating enable
-for_window [class="Galculator" instance="galculator"] floating enable
-for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
-
-# set floating (nontiling) for special apps
-for_window [app_id="Xsane" instance="xsane"] floating enable
-for_window [app_id="Pavucontrol" instance="pavucontrol"] floating enable
-for_window [app_id="qt5ct" instance="qt5ct"] floating enable
-for_window [app_id="Blueberry.py" instance="blueberry.py"] floating enable
-for_window [app_id="Bluetooth-sendto" instance="bluetooth-sendto"] floating enable
-for_window [app_id="Pamac-manager"] floating enable
-
-for_window [class="xsane" instance="xsane"] floating enable
-for_window [class="pavucontrol" instance="pavucontrol"] floating enable
-for_window [class="qt5ct" instance="qt5ct"] floating enable
-for_window [class="blueberry.py" instance="blueberry.py"] floating enable
-for_window [class="bluetooth-sendto" instance="bluetooth-sendto"] floating enable
-for_window [class="pamac-manager"] floating enable
-
-for_window [window_role="About"] floating enable
+# for_window [app_id="galculator" instance="galculator"] floating enable
+# for_window [class="Galculator" instance="galculator"] floating enable
 
 # set border of floating window
 for_window [app_id="urxvt"] border pixel 1
@@ -442,6 +469,7 @@ exec_always "pkill waybar; sleep 0.1; waybar -c ~/.config/sway/.waybar/config -s
 ## wofi bindings fancy application menu ($mod+d /F9 optional disabled)
 # bindsym $mod+d exec wofi --show drun
 bindsym $mod+d exec wofi --show drun --conf ~/.config/sway/.wofi/config
+# bindsym $mod+d exec rofi -show drun -display-drun "Apps: " -drun-display-format "{name} [{exec}]"
 # bindsym $mod+d exec rofi -modi drun -show drun
 
 ## wofi bindings for window menu ($mod+t /F10 optional disabled)
@@ -462,12 +490,11 @@ bindsym $mod+t exec wofi -show window
 #####################################
 
 # Enter warpd mode
-# Enter warpd mode
 bindsym $mod+semicolon mode "warpd"
 
 mode "warpd" {
-    bindsym x exec warpd --hint --config ~/.config/sway/.warpd/config; mode "default"
-    bindsym shift+x exec warpd --hint2 --config ~/.config/sway/.warpd/config; mode "default" 
+    bindsym h exec warpd --hint --config ~/.config/sway/.warpd/config; mode "default"
+    bindsym shift+h exec warpd --hint2 --config ~/.config/sway/.warpd/config; mode "default" 
     bindsym g exec warpd --grid --config ~/.config/sway/.warpd/config; mode "default"
     bindsym c exec warpd --normal --config ~/.config/sway/.warpd/config; mode "default"
     bindsym semicolon exec warpd --history --config ~/.config/sway/.warpd/config; mode "default"
