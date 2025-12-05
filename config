@@ -40,7 +40,7 @@ set $exec_prefix exec
 include "~/.screenlayout.sway"
 
 set $i3config $HOME/.config/sway
-set $i3scripts $i3config/scripts
+set $i3scripts $i3config/sway/scripts
 
 # Environment variables
 exec export XDG_CURRENT_DESKTOP=sway
@@ -311,7 +311,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # open new empty workspace
-# bindsym $mod+Shift+n exec $i3_scripts/empty_workspace
+# bindsym $mod+Shift+n exec $i3scripts/empty_workspace
 
 
 
@@ -372,7 +372,7 @@ bindsym Ctrl+shift+q exec swaylock -f \
 # ──────────────────────────────────────────────────
 
 # keybinding in fancy wofi (automated):
-bindsym $mod+F1 exec $i3_scripts/keyhint-2
+bindsym $mod+F1 exec $i3scripts/keyhint-2
 
 #####################################
 # Application menu handled by wofi : #
@@ -418,8 +418,8 @@ bindsym --locked XF86MonBrightnessUp exec lightctl up
 bindsym --locked XF86MonBrightnessDown exec lightctl down
 
 # Acme mouse buttons (WIP)
-bindsym --whole-window BTN_SIDE exec $i3_scripts/acme.sh "BTN_SIDE"
-bindsym --whole-window BTN_EXTRA exec $i3_scripts/acme.sh "BTN_EXTRA"
+bindsym --whole-window BTN_SIDE exec $i3scripts/acme.sh "BTN_SIDE"
+bindsym --whole-window BTN_EXTRA exec $i3scripts/acme.sh "BTN_EXTRA"
 
 # /home/julien/.config/sway/sway/config/430-notifications.conf
 # ──────────────────────────────────────────────────
@@ -504,16 +504,16 @@ mode "firefox" {
     bindsym c exec firefox, mode "default"
     
     # Profiles 0-
-    bindsym 0 exec $i3_scripts/start-firefox.sh "default-release",   mode "default"
-    bindsym 1 exec $i3_scripts/start-firefox.sh "1",                 mode "default"
-    bindsym 2 exec $i3_scripts/start-firefox.sh "2",                 mode "default"
-    bindsym 3 exec $i3_scripts/start-firefox.sh "3",                 mode "default"
-    bindsym 4 exec $i3_scripts/start-firefox.sh "4",                 mode "default"
-    bindsym 5 exec $i3_scripts/start-firefox.sh "5",                 mode "default"
-    bindsym 6 exec $i3_scripts/start-firefox.sh "6",                 mode "default"
-    bindsym 7 exec $i3_scripts/start-firefox.sh "7",                 mode "default"
-    bindsym 8 exec $i3_scripts/start-firefox.sh "8",                 mode "default"
-    bindsym 9 exec $i3_scripts/start-firefox.sh "9",                 mode "default"
+    bindsym 0 exec $i3scripts/start-firefox.sh "default-release",   mode "default"
+    bindsym 1 exec $i3scripts/start-firefox.sh "1",                 mode "default"
+    bindsym 2 exec $i3scripts/start-firefox.sh "2",                 mode "default"
+    bindsym 3 exec $i3scripts/start-firefox.sh "3",                 mode "default"
+    bindsym 4 exec $i3scripts/start-firefox.sh "4",                 mode "default"
+    bindsym 5 exec $i3scripts/start-firefox.sh "5",                 mode "default"
+    bindsym 6 exec $i3scripts/start-firefox.sh "6",                 mode "default"
+    bindsym 7 exec $i3scripts/start-firefox.sh "7",                 mode "default"
+    bindsym 8 exec $i3scripts/start-firefox.sh "8",                 mode "default"
+    bindsym 9 exec $i3scripts/start-firefox.sh "9",                 mode "default"
     
     # Exit mode
     bindsym Escape mode "default"
@@ -584,5 +584,5 @@ mode "warpd" {
 # Command Mode                      #
 #####################################
 # bindsym $mod+colon exec echo "" | wofi --dmenu --prompt "sway:" | xargs -I {} swaymsg {}
-bindsym $mod+colon exec $i3_scripts/sway-commander.sh
+bindsym $mod+colon exec $i3scripts/sway-commander.sh
 
