@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xset s on && xset s blank
+i3lock -c 000000 && sleep 0.5 && xset s activate

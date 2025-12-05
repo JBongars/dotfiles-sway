@@ -1,0 +1,36 @@
+# Clear existing config
+clear
+
+# Set Hyper-A as the trigger
+# mod4+a start
+ctrl+semicolon start
+
+# Quadrant navigation with number keys
+1 cut-left,cut-up    # Top left
+2 cut-right,cut-up   # Top right
+3 cut-left,cut-down  # Bottom left
+4 cut-right,cut-down # Bottom right
+
+# Basic movement (optional but useful)
+h cut-left
+j cut-down
+k cut-up
+l cut-right
+
+# Enter to click and end
+Return warp,click 1,end
+
+# Essential controls
+Escape end
+semicolon warp,end
+
+# Mouse buttons
+shift+1 click 1      # Left click
+shift+2 click 2      # Middle click  
+shift+3 click 3      # Right click
+
+# Scrolling functionality
+u sh "xdotool click 4"    # Scroll up (mouse wheel up)
+d sh "xdotool click 5"    # Scroll down (mouse wheel down)
+shift+u sh "xdotool click --repeat 10 4"    # Scroll up multiple lines
+shift+d sh "xdotool click --repeat 10 5"  # Scroll down multiple lines
