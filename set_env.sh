@@ -6,6 +6,7 @@ if [ -n "$SWAYSOCK" ]; then
     export XDG_SESSION_DESKTOP=sway
     export XDG_SESSION_TYPE=wayland
 else
+    export QT_QPA_PLATFORMTHEME=qt5ct
     export XDG_CURRENT_DESKTOP=i3
     export XDG_SESSION_DESKTOP=i3
     export DG_SESSION_TYPE=x11
