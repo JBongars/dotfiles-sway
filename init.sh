@@ -38,6 +38,8 @@ function install_sway() {
     install "unified"
     install "sway"
     ( cd "${HOME}/.config" && ln --symbolic "$BASE_SOURCE_PATH/sway/dotfiles/.avizo" "./avizo" 2> >(sed 's/^/WARNING: /') )
+
+
 }
 
 function install_i3() {

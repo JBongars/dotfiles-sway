@@ -11,8 +11,8 @@ sleep 2
 while [ $(pgrep swaylock | wc -l) -ne 0 ]; do
     echo "hello from swaylock!"
     sleep 30
-    # $I3_MSG "output * power off"
+    # swaymsg "output * power off"
 done
 
 echo "OUTSIDE!"
-# $I3_MSG "output * power on"
+# swaymsg "output * power on"

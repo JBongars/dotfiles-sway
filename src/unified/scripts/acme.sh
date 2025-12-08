@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-focused_app=$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .app_id')
+focused_app=$($I3_MSG -t get_tree | jq -r '.. | select(.focused?) | .app_id')
 
 if echo "$focused_app" | grep -q "firefox"; then
     case "$1" in

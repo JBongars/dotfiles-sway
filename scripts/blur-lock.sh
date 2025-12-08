@@ -1,0 +1,1 @@
+../src/sway/scripts/blur-lock.sh

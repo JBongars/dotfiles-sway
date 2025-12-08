@@ -22,7 +22,9 @@ set $mod Mod3
 # set other environment variables
 set $terminal_client alacritty
 
-
+# create wrapper to inject i3 environment variables to i3 scripts
+set $execp exec $i3config/set_env.sh
+set $execp_always exec_always $i3config/set_env.sh
 
 # /home/julien/.config/sway/src/sway/config/001-reload.conf
 # ──────────────────────────────────────────────────
@@ -35,7 +37,7 @@ bindsym $mod+Shift+r exec "swaymsg reload"
 # ──────────────────────────────────────────────────
 
 set $de sway
-set $msg $msg
+set $msg swaymsg
 set $exec_prefix exec
 include "~/.screenlayout.sway"
 
@@ -60,6 +62,13 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
 
 
+
+# /home/julien/.config/sway/src/unified/config/009-patch-exec.conf
+# ──────────────────────────────────────────────────
+
+# create wrapper to inject i3 environment variables to i3 scripts
+set $exec_env exec $i3config/set_env.sh
+set $exec_env_always exec_always $i3config/set_env.sh
 
 # /home/julien/.config/sway/src/sway/config/010-keyboard.conf
 # ──────────────────────────────────────────────────
@@ -192,15 +201,15 @@ bindsym $mod+n focus output right
 # bindsym $mod+p focus output left
 
 # switch to workspace - bring workspace to current screen
-bindcode $mod+10       exec $i3scripts/force_workspace_current_screen.sh 1
-bindcode $mod+11       exec $i3scripts/force_workspace_current_screen.sh 2
-bindcode $mod+12       exec $i3scripts/force_workspace_current_screen.sh 3
-bindcode $mod+13       exec $i3scripts/force_workspace_current_screen.sh 4
-bindcode $mod+14       exec $i3scripts/force_workspace_current_screen.sh 5
-bindcode $mod+15       exec $i3scripts/force_workspace_current_screen.sh 6
-bindcode $mod+16       exec $i3scripts/force_workspace_current_screen.sh 7
-bindcode $mod+17       exec $i3scripts/force_workspace_current_screen.sh 8
-bindcode $mod+18       exec $i3scripts/force_workspace_current_screen.sh 9
+bindcode $mod+10       $exec_env $i3scripts/force_workspace_current_screen.sh 1
+bindcode $mod+11       $exec_env $i3scripts/force_workspace_current_screen.sh 2
+bindcode $mod+12       $exec_env $i3scripts/force_workspace_current_screen.sh 3
+bindcode $mod+13       $exec_env $i3scripts/force_workspace_current_screen.sh 4
+bindcode $mod+14       $exec_env $i3scripts/force_workspace_current_screen.sh 5
+bindcode $mod+15       $exec_env $i3scripts/force_workspace_current_screen.sh 6
+bindcode $mod+16       $exec_env $i3scripts/force_workspace_current_screen.sh 7
+bindcode $mod+17       $exec_env $i3scripts/force_workspace_current_screen.sh 8
+bindcode $mod+18       $exec_env $i3scripts/force_workspace_current_screen.sh 9
 
 # move focused container to workspace
 bindcode $mod+Shift+10 move container to workspace 1
@@ -217,18 +226,18 @@ bindsym $mod+Shift+q mode "rm_workspace"
 
 # resize window
 mode "rm_workspace" {
-    # bindsym $mod+q exec "swaymsg '[workspace=__focused__] kill'" , mode "default"
-    bindsym $mod+q exec $i3scripts/organise-desktop.sh , mode "default"
+    # bindsym $mod+q $exec_env "swaymsg '[workspace=__focused__] kill'" , mode "default"
+    bindsym $mod+q $exec_env $i3scripts/organise-desktop.sh , mode "default"
 
-    bindsym 1 exec "$msg '[workspace=1] kill'" , mode "default"
-    bindsym 2 exec "$msg '[workspace=2] kill'" , mode "default"
-    bindsym 3 exec "$msg '[workspace=3] kill'" , mode "default"
-    bindsym 4 exec "$msg '[workspace=4] kill'" , mode "default"
-    bindsym 5 exec "$msg '[workspace=5] kill'" , mode "default"
-    bindsym 6 exec "$msg '[workspace=6] kill'" , mode "default"
-    bindsym 7 exec "$msg '[workspace=7] kill'" , mode "default"
-    bindsym 8 exec "$msg '[workspace=8] kill'" , mode "default"
-    bindsym 9 exec "$msg '[workspace=9] kill'" , mode "default"
+    bindsym 1 $exec_env "$msg '[workspace=1] kill'" , mode "default"
+    bindsym 2 $exec_env "$msg '[workspace=2] kill'" , mode "default"
+    bindsym 3 $exec_env "$msg '[workspace=3] kill'" , mode "default"
+    bindsym 4 $exec_env "$msg '[workspace=4] kill'" , mode "default"
+    bindsym 5 $exec_env "$msg '[workspace=5] kill'" , mode "default"
+    bindsym 6 $exec_env "$msg '[workspace=6] kill'" , mode "default"
+    bindsym 7 $exec_env "$msg '[workspace=7] kill'" , mode "default"
+    bindsym 8 $exec_env "$msg '[workspace=8] kill'" , mode "default"
+    bindsym 9 $exec_env "$msg '[workspace=9] kill'" , mode "default"
 
     # Exit mode
     bindsym Return mode "default"
@@ -306,7 +315,7 @@ bindsym $mod+e layout toggle split
 # autotiling script
 # https://github.com/nwg-piotr/autotiling
 # `yay -S autotiling 
-# exec_always autotiling
+# $exec_env_always autotiling
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -315,7 +324,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # open new empty workspace
-# bindsym $mod+Shift+n exec $i3scripts/empty_workspace
+# bindsym $mod+Shift+n $exec_env $i3scripts/empty_workspace.sh
 
 
 
@@ -335,12 +344,12 @@ bindsym $mod+q kill
 # ──────────────────────────────────────────────────
 
 # Use M-c and M-v for copy/paste
-bindsym Alt+c exec $i3scripts/send-copy.sh
-bindsym Alt+v exec $i3scripts/send-paste.sh
+bindsym Alt+c $exec_env $i3scripts/send-copy.sh
+bindsym Alt+v $exec_env $i3scripts/send-paste.sh
 
 # alt copy and paste keys if one hand is on the mouse
-bindsym Alt+j exec $i3scripts/send-copy.sh
-bindsym Alt+k exec $i3scripts/send-paste.sh
+bindsym Alt+j $exec_env $i3scripts/send-copy.sh
+bindsym Alt+k $exec_env $i3scripts/send-paste.sh
 
 # /home/julien/.config/sway/src/sway/config/310-logout.conf
 # ──────────────────────────────────────────────────
@@ -376,7 +385,7 @@ bindsym Ctrl+shift+q exec swaylock -f \
 # ──────────────────────────────────────────────────
 
 # keybinding in fancy wofi (automated):
-bindsym $mod+F1 exec $i3scripts/keyhint-2
+bindsym $mod+F1 $exec_env $i3scripts/keyhint-2.sh
 
 #####################################
 # Application menu handled by wofi : #
@@ -422,8 +431,8 @@ bindsym --locked XF86MonBrightnessUp exec lightctl up
 bindsym --locked XF86MonBrightnessDown exec lightctl down
 
 # Acme mouse buttons (WIP)
-bindsym --whole-window BTN_SIDE exec $i3scripts/acme.sh "BTN_SIDE"
-bindsym --whole-window BTN_EXTRA exec $i3scripts/acme.sh "BTN_EXTRA"
+bindsym --whole-window BTN_SIDE $exec_env $i3scripts/acme.sh "BTN_SIDE"
+bindsym --whole-window BTN_EXTRA $exec_env $i3scripts/acme.sh "BTN_EXTRA"
 
 # /home/julien/.config/sway/src/sway/config/430-notifications.conf
 # ──────────────────────────────────────────────────
@@ -483,19 +492,19 @@ exec udiskie --tray
 # 
 # mode "chrome" {
 #     # Default profile
-#     bindsym c exec /opt/chrome/chrome, mode "default"
+#     bindsym c $exec_env /opt/chrome/chrome, mode "default"
 #     
 #     # Profiles 1-9
-#     bindsym 0 exec /opt/google/chrome/chrome --profile-directory="Default"   --restore-last-session, mode "default"
-#     bindsym 1 exec /opt/google/chrome/chrome --profile-directory="Profile 1" --restore-last-session, mode "default"
-#     bindsym 2 exec /opt/google/chrome/chrome --profile-directory="Profile 2" --restore-last-session, mode "default"
-#     bindsym 3 exec /opt/google/chrome/chrome --profile-directory="Profile 3" --restore-last-session, mode "default"
-#     bindsym 4 exec /opt/google/chrome/chrome --profile-directory="Profile 4" --restore-last-session, mode "default"
-#     bindsym 5 exec /opt/google/chrome/chrome --profile-directory="Profile 5" --restore-last-session, mode "default"
-#     bindsym 6 exec /opt/google/chrome/chrome --profile-directory="Profile 6" --restore-last-session, mode "default"
-#     bindsym 7 exec /opt/google/chrome/chrome --profile-directory="Profile 7" --restore-last-session, mode "default"
-#     bindsym 8 exec /opt/google/chrome/chrome --profile-directory="Profile 8" --restore-last-session, mode "default"
-#     bindsym 9 exec /opt/google/chrome/chrome --profile-directory="Profile 9" --restore-last-session, mode "default"
+#     bindsym 0 $exec_env /opt/google/chrome/chrome --profile-directory="Default"   --restore-last-session, mode "default"
+#     bindsym 1 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 1" --restore-last-session, mode "default"
+#     bindsym 2 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 2" --restore-last-session, mode "default"
+#     bindsym 3 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 3" --restore-last-session, mode "default"
+#     bindsym 4 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 4" --restore-last-session, mode "default"
+#     bindsym 5 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 5" --restore-last-session, mode "default"
+#     bindsym 6 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 6" --restore-last-session, mode "default"
+#     bindsym 7 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 7" --restore-last-session, mode "default"
+#     bindsym 8 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 8" --restore-last-session, mode "default"
+#     bindsym 9 $exec_env /opt/google/chrome/chrome --profile-directory="Profile 9" --restore-last-session, mode "default"
 #     
 #     # Exit mode
 #     bindsym Escape mode "default"
@@ -505,19 +514,19 @@ bindsym $mod+c mode "firefox"
 
 mode "firefox" {
     # Default profile
-    bindsym c exec firefox, mode "default"
+    bindsym c $exec_env firefox, mode "default"
     
     # Profiles 0-
-    bindsym 0 exec $i3scripts/start-firefox.sh "default-release",   mode "default"
-    bindsym 1 exec $i3scripts/start-firefox.sh "1",                 mode "default"
-    bindsym 2 exec $i3scripts/start-firefox.sh "2",                 mode "default"
-    bindsym 3 exec $i3scripts/start-firefox.sh "3",                 mode "default"
-    bindsym 4 exec $i3scripts/start-firefox.sh "4",                 mode "default"
-    bindsym 5 exec $i3scripts/start-firefox.sh "5",                 mode "default"
-    bindsym 6 exec $i3scripts/start-firefox.sh "6",                 mode "default"
-    bindsym 7 exec $i3scripts/start-firefox.sh "7",                 mode "default"
-    bindsym 8 exec $i3scripts/start-firefox.sh "8",                 mode "default"
-    bindsym 9 exec $i3scripts/start-firefox.sh "9",                 mode "default"
+    bindsym 0 $exec_env $i3scripts/start-firefox.sh "default-release",   mode "default"
+    bindsym 1 $exec_env $i3scripts/start-firefox.sh "1",                 mode "default"
+    bindsym 2 $exec_env $i3scripts/start-firefox.sh "2",                 mode "default"
+    bindsym 3 $exec_env $i3scripts/start-firefox.sh "3",                 mode "default"
+    bindsym 4 $exec_env $i3scripts/start-firefox.sh "4",                 mode "default"
+    bindsym 5 $exec_env $i3scripts/start-firefox.sh "5",                 mode "default"
+    bindsym 6 $exec_env $i3scripts/start-firefox.sh "6",                 mode "default"
+    bindsym 7 $exec_env $i3scripts/start-firefox.sh "7",                 mode "default"
+    bindsym 8 $exec_env $i3scripts/start-firefox.sh "8",                 mode "default"
+    bindsym 9 $exec_env $i3scripts/start-firefox.sh "9",                 mode "default"
     
     # Exit mode
     bindsym Escape mode "default"

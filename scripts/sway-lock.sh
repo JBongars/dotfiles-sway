@@ -1,1 +1,1 @@
-../src/unified/scripts/sway-lock.sh
+../src/sway/scripts/sway-lock.sh
