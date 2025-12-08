@@ -8,7 +8,7 @@
 # ══════════════════════════════════════════════════
 
 
-# /home/julien/.config/sway/unified/config/000-init.conf
+# /home/julien/.config/sway/src/unified/config/000-init.conf
 # ──────────────────────────────────────────────────
 
 exec ~/set_once.sh
@@ -24,14 +24,14 @@ set $terminal_client alacritty
 
 
 
-# /home/julien/.config/sway/sway/config/001-reload.conf
+# /home/julien/.config/sway/src/sway/config/001-reload.conf
 # ──────────────────────────────────────────────────
 
 # Combined action: reload i3 config, restart i3, and apply xmodmap
 bindsym Mod4+Shift+r exec "swaymsg reload"
 bindsym $mod+Shift+r exec "swaymsg reload"
 
-# /home/julien/.config/sway/sway/config/005-setup.conf
+# /home/julien/.config/sway/src/sway/config/005-setup.conf
 # ──────────────────────────────────────────────────
 
 set $de sway
@@ -40,7 +40,7 @@ set $exec_prefix exec
 include "~/.screenlayout.sway"
 
 set $i3config $HOME/.config/sway
-set $i3scripts $i3config/sway/scripts
+set $i3scripts $i3config/scripts
 
 # Environment variables
 exec export XDG_CURRENT_DESKTOP=sway
@@ -57,7 +57,7 @@ exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG
 
 
 
-# /home/julien/.config/sway/sway/config/010-keyboard.conf
+# /home/julien/.config/sway/src/sway/config/010-keyboard.conf
 # ──────────────────────────────────────────────────
 
 input "type:keyboard" {
@@ -78,14 +78,14 @@ input "type:keyboard" {
 }
 
 
-# /home/julien/.config/sway/unified/config/020-screen.conf
+# /home/julien/.config/sway/src/unified/config/020-screen.conf
 # ──────────────────────────────────────────────────
 
 exec ~/.screenlayout/00-default
 
 # use arandr to generate screen layout
 
-# /home/julien/.config/sway/unified/config/040-workspace.conf
+# /home/julien/.config/sway/src/unified/config/040-workspace.conf
 # ──────────────────────────────────────────────────
 
 workspace_layout default
@@ -111,13 +111,13 @@ gaps outer 3
 # window title alignment
 #title_align center
 
-# /home/julien/.config/sway/sway/config/050-workspace.conf
+# /home/julien/.config/sway/src/sway/config/050-workspace.conf
 # ──────────────────────────────────────────────────
 
 # Set inner/outer gaps
 smart_gaps on
 
-# /home/julien/.config/sway/unified/config/100-theme.conf
+# /home/julien/.config/sway/src/unified/config/100-theme.conf
 # ──────────────────────────────────────────────────
 
 # Theme issue. Force dark theme
@@ -169,7 +169,7 @@ client.focused_inactive		$darkblue	$darkblue	$grey		$black		$black
 client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 
 
-# /home/julien/.config/sway/unified/config/120-navigation.conf
+# /home/julien/.config/sway/src/unified/config/120-navigation.conf
 # ──────────────────────────────────────────────────
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -315,7 +315,7 @@ bindsym $mod+space focus mode_toggle
 
 
 
-# /home/julien/.config/sway/unified/config/200-keybindings.conf
+# /home/julien/.config/sway/src/unified/config/200-keybindings.conf
 # ──────────────────────────────────────────────────
 
 # start a terminal
@@ -327,7 +327,7 @@ bindsym Mod4+Return exec $terminal_client
 # kill focused window
 bindsym $mod+q kill
 
-# /home/julien/.config/sway/unified/config/210-copy-paste.conf
+# /home/julien/.config/sway/src/unified/config/210-copy-paste.conf
 # ──────────────────────────────────────────────────
 
 # Use M-c and M-v for copy/paste
@@ -338,7 +338,7 @@ bindsym Alt+v exec $i3scripts/send-paste.sh
 bindsym Alt+j exec $i3scripts/send-copy.sh
 bindsym Alt+k exec $i3scripts/send-paste.sh
 
-# /home/julien/.config/sway/sway/config/310-logout.conf
+# /home/julien/.config/sway/src/sway/config/310-logout.conf
 # ──────────────────────────────────────────────────
 
 # Terminate current user session (logout)
@@ -368,7 +368,7 @@ bindsym Ctrl+shift+q exec swaylock -f \
 
 
 
-# /home/julien/.config/sway/sway/config/320-wofi.conf
+# /home/julien/.config/sway/src/sway/config/320-wofi.conf
 # ──────────────────────────────────────────────────
 
 # keybinding in fancy wofi (automated):
@@ -380,7 +380,7 @@ bindsym $mod+F1 exec $i3scripts/keyhint-2
 
 ## wofi bindings fancy application menu ($mod+d /F9 optional disabled)
 # bindsym $mod+d exec wofi --show drun
-bindsym $mod+d exec wofi --show drun --conf ~/.config/sway/.wofi/config
+bindsym $mod+d exec wofi --show drun --conf $i3config/.wofi/config
 # bindsym $mod+d exec rofi -show drun -display-drun "Apps: " -drun-display-format "{name} [{exec}]"
 # bindsym $mod+d exec rofi -modi drun -show drun
 
@@ -402,7 +402,7 @@ bindsym $mod+t exec wofi -show window
 #####################################
 
 
-# /home/julien/.config/sway/sway/config/410-multimedia.conf
+# /home/julien/.config/sway/src/sway/config/410-multimedia.conf
 # ──────────────────────────────────────────────────
 
 # Multimedia display
@@ -421,16 +421,16 @@ bindsym --locked XF86MonBrightnessDown exec lightctl down
 bindsym --whole-window BTN_SIDE exec $i3scripts/acme.sh "BTN_SIDE"
 bindsym --whole-window BTN_EXTRA exec $i3scripts/acme.sh "BTN_EXTRA"
 
-# /home/julien/.config/sway/sway/config/430-notifications.conf
+# /home/julien/.config/sway/src/sway/config/430-notifications.conf
 # ──────────────────────────────────────────────────
 
 # Desktop notifications
 # exec dunst --config ~/.config/sway/.dunst/dunstrc -print | tee -a ~/.logs/dunst
-# exec mako -c ~/.config/sway/.mako/config
+# exec mako -c $i3config/.mako/config
 exec mako
 
 
-# /home/julien/.config/sway/sway/config/440-system-tray.conf
+# /home/julien/.config/sway/src/sway/config/440-system-tray.conf
 # ──────────────────────────────────────────────────
 
 ###############
@@ -450,7 +450,7 @@ exec nm-applet
 exec wl-paste --watch cliphist store
 
 
-# /home/julien/.config/sway/sway/config/450-screenshot.conf
+# /home/julien/.config/sway/src/sway/config/450-screenshot.conf
 # ──────────────────────────────────────────────────
 
 bindsym Print exec grim /tmp/screenshot.png && \
@@ -465,13 +465,13 @@ bindsym $mod+Shift+d exec grim -g "$(slurp)" /tmp/screenshot.png && \
     notify-send "Screenshot selection saved"
 
 
-# /home/julien/.config/sway/unified/config/460-auto-mount-usb.conf
+# /home/julien/.config/sway/src/unified/config/460-auto-mount-usb.conf
 # ──────────────────────────────────────────────────
 
 # auto mount USB devices
 exec udiskie --tray
 
-# /home/julien/.config/sway/unified/config/510-webbrowser-keybinding.conf
+# /home/julien/.config/sway/src/unified/config/510-webbrowser-keybinding.conf
 # ──────────────────────────────────────────────────
 
 # We no longer use chrome.
@@ -521,7 +521,7 @@ mode "firefox" {
 
 
 
-# /home/julien/.config/sway/unified/config/610-floating-rules.conf
+# /home/julien/.config/sway/src/unified/config/610-floating-rules.conf
 # ──────────────────────────────────────────────────
 
 ##################
@@ -543,12 +543,12 @@ for_window [app_id="urxvt"] border pixel 1
 #for_window [app_id=".*"] move position center
 
 
-# /home/julien/.config/sway/sway/config/620-navigation-bar.conf
+# /home/julien/.config/sway/src/sway/config/620-navigation-bar.conf
 # ──────────────────────────────────────────────────
 
 exec_always "pkill waybar; sleep 0.1; waybar -c $i3config/.waybar/config -s $i3config/.waybar/style.css"
 
-# /home/julien/.config/sway/unified/config/620-warpd.conf
+# /home/julien/.config/sway/src/unified/config/620-warpd.conf
 # ──────────────────────────────────────────────────
 
 # Enter warpd mode
@@ -577,7 +577,7 @@ mode "warpd" {
 
 
 
-# /home/julien/.config/sway/sway/config/630-sway-commander.conf
+# /home/julien/.config/sway/src/sway/config/630-sway-commander.conf
 # ──────────────────────────────────────────────────
 
 #####################################

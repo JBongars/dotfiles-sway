@@ -1,5 +1,1 @@
-I3_CONFIG=$HOME/.config/sway/config
-mod_key=$(sed -nre 's/^set \$mod (.*)/\1/p' ${I3_CONFIG})
-grep "^bindsym" ${I3_CONFIG} \
-    | sed 's/bindsym //' \
-    | wofi -dmenu -theme ~/.config/sway/.rofi/rofikeyhint.rasi
+../src/sway/scripts/keyhint-2
