@@ -1,1 +1,1 @@
-../src/sway/scripts/send-paste.sh
+../src/unified/scripts/send-paste.sh

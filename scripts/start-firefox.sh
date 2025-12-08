@@ -1,1 +1,1 @@
-../src/sway/scripts/start-firefox.sh
+../src/unified/scripts/start-firefox.sh

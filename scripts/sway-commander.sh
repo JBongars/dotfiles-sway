@@ -1,1 +1,1 @@
-../src/sway/scripts/sway-commander.sh
+../src/unified/scripts/sway-commander.sh

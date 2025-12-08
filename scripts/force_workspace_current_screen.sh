@@ -1,1 +1,1 @@
-../src/sway/scripts/force_workspace_current_screen.sh
+../src/unified/scripts/force_workspace_current_screen.sh

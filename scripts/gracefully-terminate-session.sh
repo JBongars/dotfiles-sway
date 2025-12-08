@@ -1,1 +1,1 @@
-../src/sway/scripts/gracefully-terminate-session.sh
+../src/unified/scripts/gracefully-terminate-session.sh

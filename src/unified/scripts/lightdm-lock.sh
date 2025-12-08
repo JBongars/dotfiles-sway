@@ -11,5 +11,5 @@ GREETER_PID=$(pgrep -f lightdm-greeter)
 while [ $(pgrep -f lightdm-greeter | wc -l) -ne 0 ];
 do
     sleep 120 # 2 mins
-    $I3_MSG "output * dpms off"
+    swaymsg "output * dpms off"
 done

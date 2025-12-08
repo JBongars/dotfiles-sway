@@ -22,7 +22,7 @@ swaylock -f \
 sleep 0.5
 
 # Step 2: Attempt graceful sway exit
-$I3_MSG exit &
+swaymsg exit &
 SWAY_PID=$!
 
 # Step 3: Wait up to 10 seconds for graceful exit

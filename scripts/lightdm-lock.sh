@@ -1,1 +1,1 @@
-../src/sway/scripts/lightdm-lock.sh
+../src/unified/scripts/lightdm-lock.sh

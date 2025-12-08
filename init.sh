@@ -23,14 +23,14 @@ function generate_config(){
             echo ""
             cat "$f"
         done
-    } > config
+    } > "${BASE_CONFIG_PATH}/config"
 }
 
 function install(){
     local de="$1"
     ( cd "${BASE_SOURCE_PATH}/${de}" && \
         stow -R -t $BASE_CONFIG_PATH dotfiles
-        stow -R -t "${BASE_CONFIG_PATH}/scripts" --adopt scripts && chmod -R +x ./scripts
+        stow -R -t "${BASE_CONFIG_PATH}/scripts" --adopt scripts && chmod -R +x "${BASE_CONFIG_PATH}/scripts"
     )
 }
 
@@ -45,7 +45,7 @@ function install_i3() {
     install "i3"
 }
 
-[ -d "scripts" ] || mkdir "scripts"
+[ -d "${BASE_CONFIG_PATH}/scripts" ] || mkdir "${BASE_CONFIG_PATH}/scripts"
 
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     DE="sway"

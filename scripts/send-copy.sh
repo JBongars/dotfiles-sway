@@ -1,1 +1,1 @@
-../src/sway/scripts/send-copy.sh
+../src/unified/scripts/send-copy.sh

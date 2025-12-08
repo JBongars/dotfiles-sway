@@ -1,1 +1,1 @@
-../src/sway/scripts/power-profiles.sh
+../src/unified/scripts/power-profiles.sh

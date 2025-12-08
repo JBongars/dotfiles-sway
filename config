@@ -35,12 +35,16 @@ bindsym $mod+Shift+r exec "swaymsg reload"
 # ──────────────────────────────────────────────────
 
 set $de sway
-set $msg swaymsg
+set $msg $msg
 set $exec_prefix exec
 include "~/.screenlayout.sway"
 
 set $i3config $HOME/.config/sway
 set $i3scripts $i3config/scripts
+
+exec export I3_CONFIG=$i3config
+exec export I3_SCRIPTS=$i3scripts
+exec export I3_MSG=$msg
 
 # Environment variables
 exec export XDG_CURRENT_DESKTOP=sway
@@ -343,13 +347,13 @@ bindsym Alt+k exec $i3scripts/send-paste.sh
 
 # Terminate current user session (logout)
 # bindsym Ctrl+Mod1+q exec loginctl terminate-session $XDG_SESSION_ID
-# bindsym Ctrl+Mod1+q exec swaymsg exit
+# bindsym Ctrl+Mod1+q exec $msg exit
 bindsym Ctrl+Mod1+q exec $i3scripts/gracefully-terminate-session.sh
 
 # Screen idle/lock management - 120 minutes timeout
 exec swayidle -w \
-    timeout 7200 'swaymsg "output * power off"' \
-    resume 'swaymsg "output * power on"' \
+    timeout 7200 '$msg "output * power off"' \
+    resume '$msg "output * power on"' \
     before-sleep 'swaylock -f -c 000000'
 
 # Manual screen lock with custom config
@@ -583,6 +587,6 @@ mode "warpd" {
 #####################################
 # Command Mode                      #
 #####################################
-# bindsym $mod+colon exec echo "" | wofi --dmenu --prompt "sway:" | xargs -I {} swaymsg {}
+# bindsym $mod+colon exec echo "" | wofi --dmenu --prompt "sway:" | xargs -I {} $msg {}
 bindsym $mod+colon exec $i3scripts/sway-commander.sh
 

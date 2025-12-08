@@ -1,1 +1,1 @@
-../src/sway/scripts/organise-desktop.sh
+../src/unified/scripts/organise-desktop.sh
