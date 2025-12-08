@@ -1,0 +1,43 @@
+sudo apt install \
+i3 \
+i3status \
+i3lock \
+i3blocks \
+xorg \
+xinit \
+x11-xserver-utils \
+x11-utils \
+xdotool \
+xclip \
+xsel \
+xautolock \
+alacritty \
+dunst \
+pavucontrol \
+rofi \
+scrot \
+maim \
+feh \
+arandr \
+light \
+brightnessctl \
+network-manager-gnome \
+blueman \
+xfce4-clipman \
+udiskie \
+htop \
+imagemagick \
+jq \
+libnotify-bin \
+yad \
+power-profiles-daemon \
+fonts-noto-color-emoji \
+fonts-font-awesome \
+fonts-jetbrains-mono \
+arc-theme
+
+# optional
+# pipewire \
+# pipewire-pulse \
+# wireplumber \
+# playerctl \
