@@ -1,0 +1,31 @@
+sudo apt install \
+alacritty \
+brightnessctl \
+dunst \
+fonts-font-awesome \
+fonts-jetbrains-mono \
+fonts-noto-color-emoji \
+grim \
+htop \
+imagemagick \
+jq \
+libnotify-bin \
+network-manager \
+pavucontrol \
+power-profiles-daemon \
+slurp \
+sway \
+swaylock \
+waybar \
+wayland-protocols \
+wl-clipboard \
+wofi \
+yad \
+
+# modified repo
+https://github.com/JBongars/avizo/tree/darkmode-patch
+
+# optional sound
+# pipewire \
+# pipewire-pulse \
+# wireplumber \
