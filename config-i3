@@ -8,21 +8,23 @@
 # ══════════════════════════════════════════════════
 
 
-# /home/julien/.config/sway/src/unified/config/000-init.conf
+# /home/julien/.config/i3/src/unified/config/000-init.conf
 # ──────────────────────────────────────────────────
 
 exec ~/set_once.sh
 
 # set leader key to hyper
-set $mod Mod3
+# use Super key instead of Hyper
+# set $mod Mod3
+set $mod Mod4
 
 # set other environment variables
 set $terminal_client alacritty
 
-# /home/julien/.config/sway/src/i3/config/001-reload.conf
+# /home/julien/.config/i3/src/i3/config/001-reload.conf
 # ──────────────────────────────────────────────────
 
-bindsym Mod4+Shift+r exec "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
+# bindsym Mod4+Shift+r exec "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
 bindsym $mod+Shift+r exec "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
 
 # /usr/local/bin/apply_xmodmap.sh
@@ -42,7 +44,7 @@ bindsym $mod+Shift+r exec "i3-msg reload && i3-msg restart && /usr/local/bin/app
 # # Log for debugging
 # logger "Applied xmodmap settings for user $USER on display $DISPLAY"
 
-# /home/julien/.config/sway/src/i3/config/005-setup.conf
+# /home/julien/.config/i3/src/i3/config/005-setup.conf
 # ──────────────────────────────────────────────────
 
 set $de i3
@@ -53,21 +55,21 @@ set $exec_prefix exec --no-startup-id
 set $i3config $HOME/.config/i3
 set $i3scripts $i3config/scripts
 
-# /home/julien/.config/sway/src/unified/config/009-patch-exec.conf
+# /home/julien/.config/i3/src/unified/config/009-patch-exec.conf
 # ──────────────────────────────────────────────────
 
 # create wrapper to inject i3 environment variables to i3 scripts
-set $exec_env exec $i3config/set_env.sh
-set $exec_env_always exec_always $i3config/set_env.sh
+set $exec_env exec ~/.config/i3/set_env.sh
+set $exec_env_always exec_always ~/.config/i3/set_env.sh
 
-# /home/julien/.config/sway/src/unified/config/020-screen.conf
+# /home/julien/.config/i3/src/unified/config/020-screen.conf
 # ──────────────────────────────────────────────────
 
 exec ~/.screenlayout/00-default
 
 # use arandr to generate screen layout
 
-# /home/julien/.config/sway/src/unified/config/040-workspace.conf
+# /home/julien/.config/i3/src/unified/config/040-workspace.conf
 # ──────────────────────────────────────────────────
 
 workspace_layout default
@@ -93,7 +95,7 @@ gaps outer 3
 # window title alignment
 #title_align center
 
-# /home/julien/.config/sway/src/unified/config/100-theme.conf
+# /home/julien/.config/i3/src/unified/config/100-theme.conf
 # ──────────────────────────────────────────────────
 
 # Theme issue. Force dark theme
@@ -132,7 +134,7 @@ client.focused_inactive		$darkblue	$darkblue	$grey		$black		$black
 client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 
 
-# /home/julien/.config/sway/src/i3/config/101-wallpaper.conf
+# /home/julien/.config/i3/src/i3/config/101-wallpaper.conf
 # ──────────────────────────────────────────────────
 
 $exec_prefix xfsettingsd
@@ -150,7 +152,7 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 #exec --no-startup-id xset -dpms
 
 
-# /home/julien/.config/sway/src/unified/config/120-navigation.conf
+# /home/julien/.config/i3/src/unified/config/120-navigation.conf
 # ──────────────────────────────────────────────────
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -296,30 +298,30 @@ bindsym $mod+space focus mode_toggle
 
 
 
-# /home/julien/.config/sway/src/unified/config/200-keybindings.conf
+# /home/julien/.config/i3/src/unified/config/200-keybindings.conf
 # ──────────────────────────────────────────────────
 
 # start a terminal
 # bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+Return exec $terminal_client
 # for emergencies
-bindsym Mod4+Return exec $terminal_client
+# bindsym Mod4+Return exec $terminal_client
 
 # kill focused window
 bindsym $mod+q kill
 
-# /home/julien/.config/sway/src/unified/config/210-copy-paste.conf
+# /home/julien/.config/i3/src/unified/config/210-copy-paste.conf
 # ──────────────────────────────────────────────────
 
 # Use M-c and M-v for copy/paste
-bindsym Alt+c $exec_env $i3scripts/send-copy.sh
-bindsym Alt+v $exec_env $i3scripts/send-paste.sh
+bindsym Mod1+c $exec_env $i3scripts/send-copy.sh
+bindsym Mod1+v $exec_env $i3scripts/send-paste.sh
 
 # alt copy and paste keys if one hand is on the mouse
-bindsym Alt+j $exec_env $i3scripts/send-copy.sh
-bindsym Alt+k $exec_env $i3scripts/send-paste.sh
+bindsym Mod1+j $exec_env $i3scripts/send-copy.sh
+bindsym Mod1+k $exec_env $i3scripts/send-paste.sh
 
-# /home/julien/.config/sway/src/i3/config/310-logout.conf
+# /home/julien/.config/i3/src/i3/config/310-logout.conf
 # ──────────────────────────────────────────────────
 
 # Lock the system
@@ -341,7 +343,7 @@ exec --no-startup-id xautolock -time 60 -notify 30 -notifier "notify-send 'Locki
 
 
 
-# /home/julien/.config/sway/src/i3/config/320-rofi.conf
+# /home/julien/.config/i3/src/i3/config/320-rofi.conf
 # ──────────────────────────────────────────────────
 
 ## rofi bindings fancy application menu
@@ -358,7 +360,7 @@ bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun
 # bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
 #		-config ~/.config/i3/.rofi/rofidmenu.rasi
 
-# /home/julien/.config/sway/src/i3/config/410-multimedia.conf
+# /home/julien/.config/i3/src/i3/config/410-multimedia.conf
 # ──────────────────────────────────────────────────
 
 # Backlight control
@@ -401,7 +403,7 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 
 
-# /home/julien/.config/sway/src/i3/config/430-notifications.conf
+# /home/julien/.config/i3/src/i3/config/430-notifications.conf
 # ──────────────────────────────────────────────────
 
 # Desktop notifications
@@ -417,7 +419,7 @@ exec --no-startup-id /usr/bin/dunst
 # exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 
-# /home/julien/.config/sway/src/i3/config/440-system-tray.conf
+# /home/julien/.config/i3/src/i3/config/440-system-tray.conf
 # ──────────────────────────────────────────────────
 
 # if you do not use dex: exec --no-startup-id dex --autostart --environment i3
@@ -432,7 +434,7 @@ exec --no-startup-id nm-applet
 # clipman-applet
 exec --no-startup-id xfce4-clipman
 
-# /home/julien/.config/sway/src/i3/config/450-screenshot.conf
+# /home/julien/.config/i3/src/i3/config/450-screenshot.conf
 # ──────────────────────────────────────────────────
 
 bindsym Print exec --no-startup-id \
@@ -449,13 +451,13 @@ bindsym $mod+Shift+d exec --no-startup-id \
     && notify-send "Screenshot selection saved"
 
 
-# /home/julien/.config/sway/src/unified/config/460-auto-mount-usb.conf
+# /home/julien/.config/i3/src/unified/config/460-auto-mount-usb.conf
 # ──────────────────────────────────────────────────
 
 # auto mount USB devices
 exec udiskie --tray
 
-# /home/julien/.config/sway/src/unified/config/510-webbrowser-keybinding.conf
+# /home/julien/.config/i3/src/unified/config/510-webbrowser-keybinding.conf
 # ──────────────────────────────────────────────────
 
 # We no longer use chrome.
@@ -486,9 +488,13 @@ bindsym $mod+c mode "firefox"
 mode "firefox" {
     # Default profile
     bindsym c $exec_env firefox, mode "default"
+
+    # bindsym 0 $exec_env notify-send "hello world"
+    # bindsym 0 exec notify-send "hello world"
+    bindsym 0 $exec_env notify-send "hello world"
     
     # Profiles 0-
-    bindsym 0 $exec_env $i3scripts/start-firefox.sh "default-release",   mode "default"
+    # bindsym 0 $exec_env $i3scripts/start-firefox.sh "default-release",   mode "default"
     bindsym 1 $exec_env $i3scripts/start-firefox.sh "1",                 mode "default"
     bindsym 2 $exec_env $i3scripts/start-firefox.sh "2",                 mode "default"
     bindsym 3 $exec_env $i3scripts/start-firefox.sh "3",                 mode "default"
@@ -505,7 +511,7 @@ mode "firefox" {
 
 
 
-# /home/julien/.config/sway/src/i3/config/610-floating-rules.conf
+# /home/julien/.config/i3/src/i3/config/610-floating-rules.conf
 # ──────────────────────────────────────────────────
 
 # set floating (nontiling) for apps needing it
@@ -523,7 +529,7 @@ for_window [class="URxvt"] border pixel 1
 #for_window [app_id=".*"] move position center
 
 
-# /home/julien/.config/sway/src/i3/config/620-navigation-bar.conf
+# /home/julien/.config/i3/src/i3/config/620-navigation-bar.conf
 # ──────────────────────────────────────────────────
 
 # bar style similar to waybar
@@ -545,7 +551,7 @@ bar {
     }
 }
 
-# /home/julien/.config/sway/src/unified/config/620-warpd.conf
+# /home/julien/.config/i3/src/unified/config/620-warpd.conf
 # ──────────────────────────────────────────────────
 
 # Enter warpd mode
