@@ -37,6 +37,10 @@ include "~/.screenlayout.sway"
 set $i3config $HOME/.config/sway
 set $i3scripts $i3config/scripts
 
+# create wrapper to inject i3 environment variables to i3 scripts
+set $exec_env exec $i3config/set_env.sh
+set $exec_env_always exec_always $i3config/set_env.sh
+
 # # Environment variables - you cannot set environment variables this way
 # exec export XDG_CURRENT_DESKTOP=sway
 # exec export XDG_SESSION_DESKTOP=sway
@@ -54,13 +58,6 @@ exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG
 output * scale 1
 
 
-
-# /home/julien/.config/sway/src/unified/config/009-patch-exec.conf
-# ──────────────────────────────────────────────────
-
-# create wrapper to inject i3 environment variables to i3 scripts
-set $exec_env exec $i3config/set_env.sh
-set $exec_env_always exec_always $i3config/set_env.sh
 
 # /home/julien/.config/sway/src/sway/config/010-keyboard.conf
 # ──────────────────────────────────────────────────
@@ -184,10 +181,6 @@ floating_modifier $mod
 # switch/iterate between workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
-
-# Add a binding to move workspaces between outputs (screens)
-bindsym $mod+Shift+n move workspace to output right
-# bindsym $mod+Shift+p move workspace to output left
 
 # Focus right and left screens
 bindsym $mod+n focus output right
@@ -321,6 +314,14 @@ bindsym $mod+space focus mode_toggle
 
 
 
+# /home/julien/.config/sway/src/sway/config/121-switch-screens.sh
+# ──────────────────────────────────────────────────
+
+# Add a binding to move workspaces between outputs (screens)
+bindsym $mod+Shift+n exec $i3scripts/switch-screens.sh
+# bindsym $mod+Shift+n move workspace to output right
+# bindsym $mod+Shift+p move workspace to output left
+
 # /home/julien/.config/sway/src/unified/config/200-keybindings.conf
 # ──────────────────────────────────────────────────
 
@@ -333,7 +334,7 @@ bindsym Mod4+Return exec $terminal_client
 # kill focused window
 bindsym $mod+q kill
 
-# /home/julien/.config/sway/src/unified/config/210-copy-paste.conf
+# /home/julien/.config/sway/src/sway/config/210-copy-paste.conf
 # ──────────────────────────────────────────────────
 
 # Use M-c and M-v for copy/paste

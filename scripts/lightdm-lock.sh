@@ -1,1 +1,0 @@
-../src/unified/scripts/lightdm-lock.sh
