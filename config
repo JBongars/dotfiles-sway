@@ -99,6 +99,9 @@ default_floating_border pixel 1
 # thin borders
 hide_edge_borders both
 
+# hide cursor after 2 seconds
+seat * hide_cursor 5000
+
 # Make workspaces follow your focus between screens
 workspace_auto_back_and_forth no
 focus_follows_mouse yes
@@ -162,7 +165,7 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 # ──────────────────────────────────────────────────
 
 # set wallpaper
-# output * bg "#000000" solid_color
+# output* bg "#000000" solid_color
 output * bg ~/wallpaper.jpg fill #000000
 
 # Image options
@@ -215,15 +218,15 @@ mode "rm_workspace" {
     # bindsym $mod+q $exec_env "swaymsg '[workspace=__focused__] kill'" , mode "default"
     bindsym $mod+q $exec_env $i3scripts/organise-desktop.sh , mode "default"
 
-    bindsym 1 $exec_env '$msg "[workspace=1] kill"' , mode "default"
-    bindsym 2 $exec_env '$msg "[workspace=2] kill"' , mode "default"
-    bindsym 3 $exec_env '$msg "[workspace=3] kill"' , mode "default"
-    bindsym 4 $exec_env '$msg "[workspace=4] kill"' , mode "default"
-    bindsym 5 $exec_env '$msg "[workspace=5] kill"' , mode "default"
-    bindsym 6 $exec_env '$msg "[workspace=6] kill"' , mode "default"
-    bindsym 7 $exec_env '$msg "[workspace=7] kill"' , mode "default"
-    bindsym 8 $exec_env '$msg "[workspace=8] kill"' , mode "default"
-    bindsym 9 $exec_env '$msg "[workspace=9] kill"' , mode "default"
+    bindsym 1 exec '$msg "[workspace=1] kill"' , mode "default"
+    bindsym 2 exec '$msg "[workspace=2] kill"' , mode "default"
+    bindsym 3 exec '$msg "[workspace=3] kill"' , mode "default"
+    bindsym 4 exec '$msg "[workspace=4] kill"' , mode "default"
+    bindsym 5 exec '$msg "[workspace=5] kill"' , mode "default"
+    bindsym 6 exec '$msg "[workspace=6] kill"' , mode "default"
+    bindsym 7 exec '$msg "[workspace=7] kill"' , mode "default"
+    bindsym 8 exec '$msg "[workspace=8] kill"' , mode "default"
+    bindsym 9 exec '$msg "[workspace=9] kill"' , mode "default"
 
     # Exit mode
     bindsym Return mode "default"
