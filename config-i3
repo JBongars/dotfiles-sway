@@ -14,9 +14,7 @@
 exec ~/set_once.sh
 
 # set leader key to hyper
-# use Super key instead of Hyper
-# set $mod Mod3
-set $mod Mod4
+set $mod Mod3
 
 # set other environment variables
 set $terminal_client alacritty
@@ -24,7 +22,7 @@ set $terminal_client alacritty
 # /home/julien/.config/i3/src/i3/config/001-reload.conf
 # ──────────────────────────────────────────────────
 
-# bindsym Mod4+Shift+r exec "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
+bindsym Mod4+Shift+r exec "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
 bindsym $mod+Shift+r exec "i3-msg reload && i3-msg restart && /usr/local/bin/apply_xmodmap.sh"
 
 # /usr/local/bin/apply_xmodmap.sh
@@ -53,14 +51,20 @@ set $config_path "~/.config/i3"
 set $exec_prefix exec --no-startup-id
 
 set $i3config $HOME/.config/i3
-set $i3scripts $i3config/scripts
+set $i3scripts $HOME/.conifg/i3/scripts
 
-# /home/julien/.config/i3/src/unified/config/009-patch-exec.conf
-# ──────────────────────────────────────────────────
-
-# create wrapper to inject i3 environment variables to i3 scripts
 set $exec_env exec ~/.config/i3/set_env.sh
 set $exec_env_always exec_always ~/.config/i3/set_env.sh
+
+xmodmap ~/.Xmodmap
+
+# Sets caps to Mod3 (Super)
+# setxkbmap -option caps:hyper
+
+# /home/julien/.config/i3/src/i3/config/006-compositor.conf
+# ──────────────────────────────────────────────────
+
+exec_always --no-startup-id picom --config ~/.config/picom.conf
 
 # /home/julien/.config/i3/src/unified/config/020-screen.conf
 # ──────────────────────────────────────────────────
@@ -305,12 +309,12 @@ bindsym $mod+space focus mode_toggle
 # bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+Return exec $terminal_client
 # for emergencies
-# bindsym Mod4+Return exec $terminal_client
+bindsym Mod4+Return exec $terminal_client
 
 # kill focused window
 bindsym $mod+q kill
 
-# /home/julien/.config/i3/src/unified/config/210-copy-paste.conf
+# /home/julien/.config/i3/src/i3/config/210-copy-paste.conf
 # ──────────────────────────────────────────────────
 
 # Use M-c and M-v for copy/paste
@@ -488,13 +492,9 @@ bindsym $mod+c mode "firefox"
 mode "firefox" {
     # Default profile
     bindsym c $exec_env firefox, mode "default"
-
-    # bindsym 0 $exec_env notify-send "hello world"
-    # bindsym 0 exec notify-send "hello world"
-    bindsym 0 $exec_env notify-send "hello world"
     
     # Profiles 0-
-    # bindsym 0 $exec_env $i3scripts/start-firefox.sh "default-release",   mode "default"
+    bindsym 0 $exec_env $i3scripts/start-firefox.sh "default-release",   mode "default"
     bindsym 1 $exec_env $i3scripts/start-firefox.sh "1",                 mode "default"
     bindsym 2 $exec_env $i3scripts/start-firefox.sh "2",                 mode "default"
     bindsym 3 $exec_env $i3scripts/start-firefox.sh "3",                 mode "default"

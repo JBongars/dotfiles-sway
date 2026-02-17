@@ -5,16 +5,13 @@
 # Copyright 2014 Andreas Guldstrand <andreas.guldstrand@gmail.com>
 #
 # Licensed under the terms of the GNU GPL v3, or any later version.
-
 use strict;
 use warnings;
 use utf8;
 use Getopt::Long;
 
-# default values
 my $t_warn = $ENV{T_WARN} // 50;
 my $t_crit = $ENV{T_CRIT} // 80;
-my $cpu_usage = -1;
 my $decimals = $ENV{DECIMALS} // 0;
 my $label = $ENV{LABEL} // "";
 
@@ -22,7 +19,7 @@ sub help {
     print "Usage: cpu_usage [-w <warning>] [-c <critical>] [-d <decimals>]\n";
     print "-w <percent>: warning threshold to become yellow\n";
     print "-c <percent>: critical threshold to become red\n";
-    print "-d <decimals>:  Use <decimals> decimals for percentage (default is $decimals) \n"; 
+    print "-d <decimals>: Use <decimals> decimals for percentage (default is $decimals)\n";
     exit 0;
 }
 
@@ -32,30 +29,37 @@ GetOptions("help|h" => \&help,
            "d=i"    => \$decimals,
 );
 
-# Get CPU usage
-$ENV{LC_ALL}="en_US"; # if mpstat is not run under en_US locale, things may break, so make sure it is
-open (MPSTAT, 'mpstat 1 1 |') or die;
+$ENV{LC_ALL} = "en_US";
+
+my @core_usage;
+my $max_usage = 0;
+
+open(MPSTAT, 'mpstat -P ALL 1 1 |') or die;
 while (<MPSTAT>) {
-    if (/^.*\s+(\d+\.\d+)[\s\x00]?$/) {
-        $cpu_usage = 100 - $1; # 100% - %idle
-        last;
+    # Match individual cores (skip the "all" line)
+    if (/^\d+:\d+:\d+\s+(?:AM|PM)?\s*(\d+)\s+.*\s+(\d+\.\d+)[\s\x00]?$/) {
+        my $core = $1;
+        my $usage = 100 - $2;
+        push @core_usage, $usage;
+        $max_usage = $usage if $usage > $max_usage;
     }
 }
 close(MPSTAT);
 
-$cpu_usage eq -1 and die 'Can\'t find CPU information';
+die 'Can\'t find CPU information' unless @core_usage;
 
-# Print short_text, full_text
-print "${label}";
-printf "%02.${decimals}f%%\n", $cpu_usage;
-print "${label}";
-printf "%02.${decimals}f%%\n", $cpu_usage;
+# Format output
+my $output = $label . join(" ", map { sprintf "%02.${decimals}f%%", $_ } @core_usage);
 
-# Print color, if needed
-if ($cpu_usage >= $t_crit) {
+# Print full_text and short_text
+print "$output\n";
+print "$output\n";
+
+# Print color based on highest core usage
+if ($max_usage >= $t_crit) {
     print "#FF0000\n";
     exit 33;
-} elsif ($cpu_usage >= $t_warn) {
+} elsif ($max_usage >= $t_warn) {
     print "#FFFC00\n";
 }
 

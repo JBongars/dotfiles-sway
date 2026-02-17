@@ -49,16 +49,8 @@ function install_i3() {
 
 [ -d "${BASE_CONFIG_PATH}/scripts" ] || mkdir "${BASE_CONFIG_PATH}/scripts"
 
-if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-    DE="sway"
-    DE_CONFIG_PATH="${BASE_SOURCE_PATH}/sway/config"
+DE="i3"
+DE_CONFIG_PATH="${BASE_SOURCE_PATH}/i3/config"
 
-    generate_config
-    install_sway
-else
-    DE="i3"
-    DE_CONFIG_PATH="${BASE_SOURCE_PATH}/i3/config"
-
-    generate_config
-    install_i3
-fi
+generate_config
+install_i3
