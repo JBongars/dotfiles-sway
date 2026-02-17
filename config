@@ -57,6 +57,8 @@ exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG
 # sets display scaling to 1 for all displays
 output * scale 1
 
+# DEBUG give focus to VMs
+for_window [app_id="virt-manager"] shortcuts_inhibitor activate
 
 
 # /home/julien/.config/sway/src/sway/config/010-keyboard.conf
@@ -239,22 +241,22 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
+# logical navigation. stays top level
+bindsym $mod+Left focus prev sibling
+bindsym $mod+Down focus child
+bindsym $mod+Up focus parent
+bindsym $mod+Right focus next sibling
+
+# move focused window
 bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Right move right
 
 # Enter resize mode
