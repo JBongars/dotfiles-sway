@@ -82,6 +82,9 @@ workspace_layout default
 default_border pixel 1
 default_floating_border pixel 1
 
+# hide cursor after 5 seconds
+seat * hide_cursor 5000
+
 # thin borders
 hide_edge_borders both
 
@@ -166,10 +169,6 @@ floating_modifier $mod
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-# Add a binding to move workspaces between outputs (screens)
-bindsym $mod+Shift+n move workspace to output right
-# bindsym $mod+Shift+p move workspace to output left
-
 # Focus right and left screens
 bindsym $mod+n focus output right
 # bindsym $mod+p focus output left
@@ -203,15 +202,15 @@ mode "rm_workspace" {
     # bindsym $mod+q $exec_env "swaymsg '[workspace=__focused__] kill'" , mode "default"
     bindsym $mod+q $exec_env $i3scripts/organise-desktop.sh , mode "default"
 
-    bindsym 1 $exec_env "$msg '[workspace=1] kill'" , mode "default"
-    bindsym 2 $exec_env "$msg '[workspace=2] kill'" , mode "default"
-    bindsym 3 $exec_env "$msg '[workspace=3] kill'" , mode "default"
-    bindsym 4 $exec_env "$msg '[workspace=4] kill'" , mode "default"
-    bindsym 5 $exec_env "$msg '[workspace=5] kill'" , mode "default"
-    bindsym 6 $exec_env "$msg '[workspace=6] kill'" , mode "default"
-    bindsym 7 $exec_env "$msg '[workspace=7] kill'" , mode "default"
-    bindsym 8 $exec_env "$msg '[workspace=8] kill'" , mode "default"
-    bindsym 9 $exec_env "$msg '[workspace=9] kill'" , mode "default"
+    bindsym 1 $exec_env '$msg "[workspace=1] kill"' , mode "default"
+    bindsym 2 $exec_env '$msg "[workspace=2] kill"' , mode "default"
+    bindsym 3 $exec_env '$msg "[workspace=3] kill"' , mode "default"
+    bindsym 4 $exec_env '$msg "[workspace=4] kill"' , mode "default"
+    bindsym 5 $exec_env '$msg "[workspace=5] kill"' , mode "default"
+    bindsym 6 $exec_env '$msg "[workspace=6] kill"' , mode "default"
+    bindsym 7 $exec_env '$msg "[workspace=7] kill"' , mode "default"
+    bindsym 8 $exec_env '$msg "[workspace=8] kill"' , mode "default"
+    bindsym 9 $exec_env '$msg "[workspace=9] kill"' , mode "default"
 
     # Exit mode
     bindsym Return mode "default"
@@ -224,22 +223,22 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
+# logical navigation. stays top level
+bindsym $mod+Left focus prev sibling
+bindsym $mod+Down focus child
+bindsym $mod+Up focus parent
+bindsym $mod+Right focus next sibling
+
+# move focused window
 bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Right move right
 
 # Enter resize mode
@@ -301,6 +300,13 @@ bindsym $mod+space focus mode_toggle
 # bindsym $mod+Shift+n $exec_env $i3scripts/empty_workspace.sh
 
 
+
+# /home/julien/.config/i3/src/i3/config/121-switch-screens.sh
+# ──────────────────────────────────────────────────
+
+# Add a binding to move workspaces between outputs (screens)
+bindsym $mod+Shift+n move workspace to output right
+# bindsym $mod+Shift+p move workspace to output left
 
 # /home/julien/.config/i3/src/unified/config/200-keybindings.conf
 # ──────────────────────────────────────────────────
