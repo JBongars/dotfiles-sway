@@ -4,8 +4,11 @@ BASE_CONFIG_PATH="$(cd "$(dirname "$0")" && pwd)"
 BASE_SOURCE_PATH="${BASE_CONFIG_PATH}/src"
 UNIFIED_CONFIG_PATH="${BASE_SOURCE_PATH}/unified/config"
 
+DE="$1"
+
 function generate_config(){
-    local de=$1
+    local DESKTOP_ENV=$1
+    local DE_CONFIG_PATH="${BASE_CONFIG_PATH}/src/${DESKTOP_ENV}/config"
     {
         echo "#"
         figlet -f small "sway/i3 config" | sed 's/^/# /'
@@ -28,7 +31,8 @@ function generate_config(){
 
 function install(){
     local de="$1"
-    ( cd "${BASE_SOURCE_PATH}/${de}" && \
+    ( 
+        cd "${BASE_SOURCE_PATH}/${de}"
         stow -R -t $BASE_CONFIG_PATH dotfiles
         stow -R -t "${BASE_CONFIG_PATH}/scripts" --adopt scripts && chmod -R +x "${BASE_CONFIG_PATH}/scripts"
     )
@@ -37,9 +41,10 @@ function install(){
 function install_sway() {
     install "unified"
     install "sway"
-    ( cd "${HOME}/.config" && ln --symbolic "$BASE_SOURCE_PATH/sway/dotfiles/.avizo" "./avizo" 2> >(sed 's/^/WARNING: /') )
-
-
+    ( 
+        cd "${HOME}/.config"
+        ln --symbolic "$BASE_SOURCE_PATH/sway/dotfiles/.avizo" "./avizo" 2> >(sed 's/^/WARNING: /')
+    )
 }
 
 function install_i3() {
@@ -49,8 +54,10 @@ function install_i3() {
 
 [ -d "${BASE_CONFIG_PATH}/scripts" ] || mkdir "${BASE_CONFIG_PATH}/scripts"
 
-DE="i3"
-DE_CONFIG_PATH="${BASE_SOURCE_PATH}/i3/config"
-
-generate_config
-install_i3
+if [ -n "$SWAYSOCK" ]; then
+    generate_config sway
+    install_sway
+else
+    generate_config i3
+    install_i3
+fi
