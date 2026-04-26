@@ -1,43 +1,42 @@
 sudo apt install \
-
-alacritty \
-arandr \
-arc-theme
-blueman \
-brightnessctl \
-dunst \
-feh \
-figlet
-fonts-font-awesome \
-fonts-jetbrains-mono \
-fonts-noto-color-emoji \
-htop \
-i3 \
-i3blocks \
-i3lock \
-i3status \
-imagemagick \
-jq \
-libnotify-bin \
-light \
-maim \
-network-manager-gnome \
-pavucontrol \
-power-profiles-daemon \
-rofi \
-scrot \
-stow \
-udiskie \
-x11-utils \
-x11-xserver-utils \
-xautolock \
-xclip \
-xdotool \
-xfce4-clipman \
-xinit \
-xorg \
-xsel \
-yad
+  alacritty \
+  arandr \
+  arc-theme \
+  blueman \
+  brightnessctl \
+  dunst \
+  feh \
+  figlet \
+  fonts-font-awesome \
+  fonts-jetbrains-mono \
+  fonts-noto-color-emoji \
+  htop \
+  i3 \
+  i3blocks \
+  i3lock \
+  i3status \
+  imagemagick \
+  jq \
+  libnotify-bin \
+  light \
+  maim \
+  network-manager-gnome \
+  pavucontrol \
+  power-profiles-daemon \
+  rofi \
+  scrot \
+  stow \
+  udiskie \
+  x11-utils \
+  x11-xserver-utils \
+  xautolock \
+  xclip \
+  xdotool \
+  xfce4-clipman \
+  xinit \
+  xorg \
+  xsel \
+  yad
 
 # optional
 # pipewire \
