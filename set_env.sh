@@ -9,7 +9,7 @@ else
     export QT_QPA_PLATFORMTHEME=qt5ct
     export XDG_CURRENT_DESKTOP=i3
     export XDG_SESSION_DESKTOP=i3
-    export DG_SESSION_TYPE=x11
+    export XDG_SESSION_TYPE=x11
     export I3_MSG=i3-msg
 fi
 

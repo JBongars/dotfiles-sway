@@ -24,6 +24,7 @@ wl-clipboard
 wofi
 wtype
 yad
+gammastep
 
 # install with yay
 nwg-displays # display configurator
