@@ -1,0 +1,1 @@
+../src/sway/scripts/screen-lock.sh

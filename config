@@ -429,9 +429,6 @@ bindsym $mod+t exec wofi -show window
 # /home/julien/.config/sway/src/sway/config/410-multimedia.conf
 # ──────────────────────────────────────────────────
 
-# Multimedia display
-# exec avizo-service &
-
 # Volume controls
 bindsym --locked XF86AudioRaiseVolume exec volumectl -u up
 bindsym --locked XF86AudioLowerVolume exec volumectl -u down  
@@ -444,6 +441,12 @@ bindsym --locked XF86MonBrightnessDown exec lightctl down
 # Acme mouse buttons (WIP)
 bindsym --whole-window BTN_SIDE $exec_env $i3scripts/acme.sh "BTN_SIDE"
 bindsym --whole-window BTN_EXTRA $exec_env $i3scripts/acme.sh "BTN_EXTRA"
+
+# /home/julien/.config/sway/src/sway/config/411-screen-scriber.conf
+# ──────────────────────────────────────────────────
+
+exec_always --no-startup-id wayscriber --daemon
+bindsym $mod+F4 exec wayscriber --daemon-toggle
 
 # /home/julien/.config/sway/src/sway/config/430-notifications.conf
 # ──────────────────────────────────────────────────

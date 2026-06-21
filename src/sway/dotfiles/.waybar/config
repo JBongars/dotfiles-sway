@@ -39,6 +39,7 @@
 // Configuration - modules-right
 
     "modules-right": [
+    	"custom/lock-screen",
     	"custom/terminal",
         "custom/keyboard-layout",
         "tray",
@@ -49,8 +50,14 @@
     ],
 
     "custom/terminal": {
-        "format": "",
+        "format": "  ",
         "on-click": "alacritty",
+        "tooltip": false
+    },
+
+    "custom/lock-screen": {
+        "format": " 󰌾 ",
+        "on-click": "~/.config/sway/scripts/screen-lock.sh",
         "tooltip": false
     },
 
