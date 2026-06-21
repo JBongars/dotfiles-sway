@@ -88,6 +88,12 @@
     margin-right: 5px;
 }
 
+#custom-lock-screen {
+    color: #807dfe;
+    padding: 0px 0px;
+    margin-right: 5px;
+}
+
 #workspaces {
     font-size: 12px;
     margin-right: 10px;
