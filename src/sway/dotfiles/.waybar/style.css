@@ -111,17 +111,18 @@
 #tray,
 #clock {
     color: #807dfe;
-    padding: 0px 5px;
-    margin: 0px 2px;
+    padding: 0px 8px;
+    margin: 0 0;
 }
 
 #tray {
-    margin: 0;
+    margin: 0px 8px;
     padding: 0;
 }
 
 #clock {
     color: white;
+    margin-left: 8px;
 }
 
 /* -----------------------------------------------------------------------------
@@ -134,6 +135,7 @@
 
 #pulseaudio {
     color: @highlight;
+    padding: 0 0;
 }
 
 #pulseaudio.muted {

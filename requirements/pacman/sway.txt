@@ -31,6 +31,7 @@ nwg-displays # display configurator
 ttf-nerd-fonts-symbols-mono
 warpd-git
 wayscriber
+arc-gtk-theme
 
 # modified repo
 https://github.com/JBongars/avizo/tree/darkmode-patch
