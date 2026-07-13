@@ -2,15 +2,19 @@
 
 set -eou pipefail
 
+# BACKGROUND_IMAGE="--screenshots"
+BACKGROUND_IMAGE="--image \"${HOME}/wallpaper.jpg\""
+
 swaylock -f \
-    --config "$HOME/.config/sway/.swaylock/config" \
-    --screenshots \
+    --config "$HOME/.config/.swaylock/config" \
+    $BACKGROUND_IMAGE \
     --ignore-empty-password \
     --daemonize \
     --indicator-caps-lock \
     --indicator \
     --clock \
-    --timestr "%Hh %Mm %Ss" \
-    --datestr "%b-%d-%Y" \
+    --timestr "%H:%M" \
+    --datestr "%d-%m-%Y" \
     --show-failed-attempts \
     --indicator-idle-visible
+

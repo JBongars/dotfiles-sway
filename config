@@ -378,20 +378,7 @@ exec swayidle -w \
     before-sleep 'swaylock -f -c 000000'
 
 # Manual screen lock with custom config
-bindsym Ctrl+shift+q exec swaylock -f \
-    --config "$i3config/.swaylock/config" \
-    --screenshots \
-    --ignore-empty-password \
-    --daemonize \
-    --indicator-caps-lock \
-    --indicator \
-    --clock \
-    --timestr "%H:%M" \
-    --datestr "%d-%m-%Y" \
-    --show-failed-attempts \
-    --indicator-idle-visible
-
-
+bindsym Ctrl+shift+q exec $i3scripts/screen-lock.sh
 
 # /home/julien/.config/sway/src/sway/config/320-wofi.conf
 # ──────────────────────────────────────────────────
