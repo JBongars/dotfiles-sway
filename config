@@ -562,7 +562,8 @@ for_window [app_id="urxvt"] border pixel 1
 # ──────────────────────────────────────────────────
 
 # $exec_env_always sh -c "pkill waybar; sleep 0.1; waybar -c $i3config/.waybar/config -s $i3config/.waybar/style.css"
-exec_always sh -c "pkill waybar; sleep 0.1; waybar -c $i3config/.waybar/config -s $i3config/.waybar/style.css"
+# exec_always sh -c "pkill waybar; sleep 0.1; waybar -c $i3config/.waybar/config -s $i3config/.waybar/style.css"
+exec_always $i3scripts/waybar.sh
 
 # /home/julien/.config/sway/src/unified/config/620-warpd.conf
 # ──────────────────────────────────────────────────
